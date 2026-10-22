@@ -1,0 +1,940 @@
+/* Anthony Joseph Robles — styles.css
+   Fonts are loaded from index.html (not @import), so they don't block rendering in a chain. */
+
+:root {
+  --gold-text: #bca068;
+  --gold-line: #a88d55;
+  --bg-dark: #0a0a0a;
+
+  --font-display: "Oswald", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-ui: Arial, Helvetica, sans-serif;
+
+  --gutter: clamp(1rem, 5vw, 4rem);
+
+  --alt: #0f0e0c;
+  --panel: rgba(12, 12, 12, 0.8);
+  --line: rgba(188, 160, 104, 0.18);
+  --muted: #a8a49b;
+  --error: #e8907f;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--bg-dark);
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 1rem;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh; /* ignores the mobile browser bar, so the hero is never cut off */
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-dark);
+  color: #fff;
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* ==========================================================================
+   Top bar
+   ========================================================================== */
+.topbar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 56px;
+  padding: 0.25rem var(--gutter);
+  background: #000;
+}
+
+.brand {
+  flex: none;
+  display: inline-flex;
+}
+
+.brand img {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 1.5rem;
+  margin-right: auto;
+}
+
+.nav-links a,
+.socials a {
+  position: relative;
+  color: #fff;
+  text-decoration: none;
+  transition: color 220ms ease, transform 220ms ease;
+}
+
+.nav-links a {
+  display: inline-block;
+  padding: 0.7rem 0.1rem; /* roughly a 36px tap target */
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.45rem;
+  height: 1px;
+  background: var(--gold-line);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 240ms ease;
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="true"] {
+  color: var(--gold-text);
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after,
+.nav-links a[aria-current="true"]::after {
+  transform: scaleX(1);
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+}
+
+.socials a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  font-size: 0.95rem;
+}
+
+.socials a:hover {
+  color: var(--gold-text);
+  transform: translateY(-2px);
+}
+
+.brand:focus-visible,
+.nav-links a:focus-visible,
+.socials a:focus-visible {
+  outline: 2px solid var(--gold-text);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 10px 14px;
+  color: var(--bg-dark);
+  background: #fff;
+  transform: translateY(-160%);
+  transition: transform 180ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+main {
+  flex: 1;
+}
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* Fills the first screen below the top bar. script.js keeps --topbar-h accurate. */
+  min-height: max(34rem, calc(100vh - var(--topbar-h, 56px)));
+  min-height: max(34rem, calc(100svh - var(--topbar-h, 56px)));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(2.5rem, 9vh, 5.5rem) var(--gutter) clamp(1.5rem, 5vh, 3rem);
+}
+
+/* The photo is an <img> inside <picture>, so the browser picks the right crop and loads it early */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.hero-bg img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 20%; /* wide screens: keep his head in frame */
+}
+
+/* Darkens the bottom for the shows panel and the very top under the nav */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0) 38%),
+    linear-gradient(to bottom, rgba(10, 10, 10, 0.35) 0%, rgba(10, 10, 10, 0) 30%);
+}
+
+/* On desktop and landscape he sits on the left, so the text goes in the right-hand column */
+.hero-copy {
+  width: min(100%, 44rem, 52%);
+  margin-left: auto;
+}
+
+.hero-copy h1 {
+  color: var(--gold-text);
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5.2vw, 5.5rem);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  text-wrap: balance; /* lets the name break onto two even lines instead of shrinking */
+}
+
+.hero-copy p {
+  margin-top: 0.75rem;
+  color: #fff;
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 1.8vw, 1.375rem);
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   Upcoming shows panel
+   ========================================================================== */
+.show-panel {
+  width: min(100%, 26rem);
+  margin-left: auto;
+  padding: 1.5rem 1.75rem;
+  background-color: rgba(12, 12, 12, 0.78);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.show-panel h2 {
+  margin-bottom: 0.4rem;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.show-panel p {
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.gold-rule {
+  width: 32px;
+  height: 2px;
+  margin-top: 0.9rem;
+  background-color: var(--gold-line);
+  transform-origin: left;
+}
+
+/* ==========================================================================
+   Entrance motion (skipped for visitors who ask for less motion)
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-copy,
+  .show-panel {
+    animation: fade-up 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .hero-copy { animation-delay: 100ms; }
+  .show-panel { animation-delay: 280ms; }
+
+  .show-panel .gold-rule { animation: rule-reveal 650ms ease 650ms both; }
+
+  .show-panel {
+    transition: background-color 260ms ease, border-color 260ms ease, transform 260ms ease;
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .show-panel:hover {
+    background-color: rgba(12, 12, 12, 0.9);
+    border-top-color: rgba(188, 160, 104, 0.5);
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rule-reveal {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* ==========================================================================
+   Portrait phones and tablets: stacked layout, taller photo crop
+   (these queries match the <source> conditions in index.html)
+   ========================================================================== */
+@media (max-width: 1100px) and (orientation: portrait) {
+  .hero-bg img {
+    object-position: 50% 100%; /* the generated crops put him at the bottom */
+  }
+
+  .hero-copy {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .show-panel {
+    margin-left: 0;
+  }
+}
+
+/* Portrait tablet */
+@media (min-width: 768px) and (max-width: 1100px) and (orientation: portrait) {
+  .hero-copy h1 {
+    font-size: clamp(3rem, 8vw, 5rem);
+  }
+}
+
+/* Sticky top bar on tablets and desktops, so every section is one click away */
+@media (min-width: 768px) {
+  html {
+    scroll-padding-top: calc(var(--topbar-h, 56px) + 1rem);
+  }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+  }
+}
+
+/* The SHOWS link lands with the panel mid-screen instead of pinned to the top */
+.show-panel {
+  scroll-margin-top: 50vh;
+}
+
+/* Tighter spacing so the 7 links stay on one row on small tablets */
+@media (max-width: 900px) {
+  .topbar { gap: 1rem; }
+  .nav-links { gap: 0 1rem; }
+}
+
+/* ==========================================================================
+   Phones
+   ========================================================================== */
+@media (max-width: 767px) {
+  :root {
+    --topbar-h: 121px; /* logo row + two rows of nav links */
+  }
+
+  /* Row 1: logo + social icons. Row 2+: the nav links wrap instead of hiding behind a scroll */
+  .topbar {
+    flex-wrap: wrap;
+    gap: 0;
+  }
+
+  .brand {
+    margin-right: auto;
+  }
+
+  .socials {
+    order: 2;
+  }
+
+  .nav-links {
+    order: 3;
+    flex: 1 0 100%;
+    margin-right: 0;
+    gap: 0 1.1rem;
+  }
+
+  .hero {
+    min-height: max(40rem, calc(100vh - var(--topbar-h, 121px)));
+    min-height: max(40rem, calc(100svh - var(--topbar-h, 121px)));
+  }
+
+  .show-panel {
+    width: 100%;
+    padding: 1.25rem;
+  }
+
+  .show-panel h2 {
+    font-size: 1.125rem;
+  }
+}
+
+/* ==========================================================================
+   Page sections: Music, News, Gallery, Bio, Contact
+   ========================================================================== */
+.wrap {
+  position: relative;
+  width: min(100% - 2 * var(--gutter), 72rem);
+  margin-inline: auto;
+}
+
+.section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(3.5rem, 9vw, 7rem) 0;
+  background: var(--bg-dark);
+  border-top: 1px solid var(--line);
+}
+
+.section--alt {
+  background: var(--alt);
+}
+
+/* A pair of thin gold streaks in the corner, echoing the light lines in the photo */
+.section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(42vw, 34rem);
+  height: min(24vw, 18rem);
+  pointer-events: none;
+  opacity: 0.55;
+  background:
+    linear-gradient(to top right, transparent calc(50% - 0.5px), rgba(188, 160, 104, 0.5) 50%, transparent calc(50% + 0.5px)),
+    linear-gradient(to top right, transparent calc(50% + 14px), rgba(188, 160, 104, 0.25) calc(50% + 15px), transparent calc(50% + 16px));
+  -webkit-mask-image: linear-gradient(to left, #000, transparent);
+  mask-image: linear-gradient(to left, #000, transparent);
+}
+
+.section-head {
+  max-width: 40rem;
+  margin-bottom: clamp(1.75rem, 4vw, 3rem);
+}
+
+.section-title {
+  color: var(--gold-text);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.4vw, 3.5rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.section-lead {
+  margin-top: 0.75rem;
+  color: #fff;
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.section-head .gold-rule {
+  margin-top: 1.25rem;
+}
+
+/* Shared card look (same as the shows panel) */
+.card {
+  background: var(--panel);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.card h3,
+.news-item h3 {
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.tag {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--gold-line);
+  color: var(--gold-text);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ---- Music ---- */
+.release-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.5rem;
+}
+
+.release .cover {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(188, 160, 104, 0.3), transparent 55%),
+    linear-gradient(160deg, #1a150d, #0a0a0a);
+  border-bottom: 1px solid var(--line);
+}
+
+.release .cover img {
+  width: 34%;
+  height: auto;
+  opacity: 0.6;
+}
+
+.card-body {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.card-body h3 {
+  font-size: 1.25rem;
+}
+
+.card-body p:not(.tag):not(.meta) {
+  margin-top: 0.75rem;
+  color: #d6d2c8;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.card-body .btn {
+  margin-top: 1.25rem;
+}
+
+.meta {
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+}
+
+/* ---- News ---- */
+.news-list {
+  list-style: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.news-item {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: 0.5rem 2rem;
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.news-item time,
+.news-item .news-date {
+  padding-top: 0.35rem;
+  color: var(--gold-text);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.news-item h3 {
+  font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+}
+
+.news-item p {
+  max-width: 60ch;
+  margin-top: 0.5rem;
+  color: #d6d2c8;
+  line-height: 1.65;
+}
+
+/* ---- Gallery ---- */
+.gallery-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: clamp(8rem, 16vw, 12rem);
+  gap: 0.75rem;
+}
+
+.shot {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #15110a, #0a0a0a);
+  border: 1px solid var(--line);
+}
+
+.shot--lg { grid-column: span 2; grid-row: span 2; }
+.shot--wide { grid-column: span 2; }
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.shot--photo img {
+  object-position: 33% 28%;
+}
+
+.shot.is-placeholder {
+  display: grid;
+  place-items: center;
+  border-style: dashed;
+}
+
+.shot.is-placeholder img {
+  width: 2.25rem;
+  height: auto;
+  opacity: 0.35;
+}
+
+/* ---- Bio ---- */
+.bio-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.portrait {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--line);
+}
+
+.portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 33% 25%;
+}
+
+.bio-copy > p {
+  max-width: 60ch;
+  color: #d6d2c8;
+  line-height: 1.75;
+}
+
+.bio-copy > p + p {
+  margin-top: 1rem;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.75rem 1.5rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.facts dt {
+  color: var(--gold-text);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.facts dd {
+  color: var(--muted);
+}
+
+/* ---- Contact ---- */
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.contact-copy > p {
+  max-width: 44ch;
+  color: #d6d2c8;
+  line-height: 1.7;
+}
+
+.contact-copy > p + p {
+  margin-top: 1rem;
+}
+
+.contact-links {
+  list-style: none;
+  margin-top: 1.75rem;
+}
+
+.contact-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  color: #fff;
+  font-size: 0.9375rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color 220ms ease;
+}
+
+.contact-links a:hover {
+  color: var(--gold-text);
+}
+
+.icon {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: var(--gold-text);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contact-form {
+  display: grid;
+  gap: 1.1rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--panel);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.field label {
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0;
+  background-color: #0c0b09;
+  color: #fff;
+  font: inherit;
+  font-size: 1rem; /* 16px stops iPhones zooming in on focus */
+  line-height: 1.4;
+}
+
+.field textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.field select {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 2.75rem;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--gold-text) 50%),
+    linear-gradient(135deg, var(--gold-text) 50%, transparent 50%);
+  background-position: calc(100% - 1.3rem) calc(50% + 1px), calc(100% - 0.95rem) calc(50% + 1px);
+  background-size: 0.4rem 0.4rem, 0.4rem 0.4rem;
+  background-repeat: no-repeat;
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  border-color: var(--gold-text);
+  outline: 2px solid var(--gold-text);
+  outline-offset: 2px;
+}
+
+.field [aria-invalid="true"] {
+  border-color: var(--error);
+}
+
+/* Spam trap: hidden with the clip technique (not display:none) so bots still fill it in */
+.hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.95rem 1.75rem;
+  border: 1px solid var(--gold-text);
+  font: 700 0.8125rem/1 var(--font-ui);
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 220ms ease, color 220ms ease;
+}
+
+.btn-primary {
+  background: var(--gold-text);
+  color: var(--bg-dark);
+}
+
+.btn-primary:hover {
+  background: #d1b77e;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--gold-text);
+}
+
+.btn-secondary:hover {
+  background: rgba(188, 160, 104, 0.12);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.form-status {
+  min-height: 1.5em;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.form-status[data-kind="ok"] { color: var(--gold-text); }
+.form-status[data-kind="error"] { color: var(--error); }
+
+/* ---- Footer ---- */
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding: 1.75rem var(--gutter);
+  background: #000;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+.site-footer a {
+  color: var(--gold-text);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+.site-footer a:focus-visible {
+  outline: 2px solid var(--gold-text);
+  outline-offset: 3px;
+}
+
+/* Hover lift and photo zoom, only for mouse users who haven't asked for less motion */
+@media (prefers-reduced-motion: no-preference) {
+  .card { transition: border-color 260ms ease, transform 260ms ease; }
+  .shot--photo img { transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card:hover { border-top-color: rgba(188, 160, 104, 0.5); transform: translateY(-3px); }
+  .shot--photo:hover img { transform: scale(1.04); }
+}
+
+/* ---- Section layout on smaller screens ---- */
+@media (max-width: 900px) {
+  .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 800px) {
+  .bio-grid,
+  .contact-grid { grid-template-columns: 1fr; }
+
+  .portrait { max-width: 26rem; }
+}
+
+@media (max-width: 640px) {
+  .news-item { grid-template-columns: 1fr; gap: 0.35rem; }
+
+  /* Releases become compact rows on phones instead of three full-width squares */
+  .release {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .release .cover {
+    border-right: 1px solid var(--line);
+    border-bottom: 0;
+  }
+
+  .release .card-body {
+    padding: 1rem 1.25rem;
+  }
+}
