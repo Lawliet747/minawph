@@ -3,7 +3,7 @@
 A one-page musician profile site built with plain HTML, CSS and JavaScript. There is no framework and no build step.
 
 - **Live site:** https://minawph.pages.dev/
-- **Version:** v6 (23 October 2026)
+- **Version:** v4.1 (23 October 2026)
 
 ## What's on the page
 
@@ -98,6 +98,5 @@ The site is hosted on Cloudflare Pages. Pushing to the `main` branch on GitHub r
 
 ## Release history
 
-- **v6 (2026-10-23):** Hero name on a single line, with the size following the space available (about 93 px on a wide desktop, 34 px on a phone). On portrait phones and tablets the name uses the full screen width.
-- **v5 (2026-10-23):** New blue colour scheme taken from the hero photo, replacing the gold. Logo, favicons, share image, portrait and the mobile and tablet hero crops recoloured or rebuilt to match. CSS variables and the `.gold-rule` class renamed to neutral names (`--accent`, `.accent-rule`).
+- **v4.1 (2026-10-23):** New blue colour scheme taken from the hero photo, replacing the gold. Logo, favicons, share image, portrait and the mobile and tablet hero crops recoloured or rebuilt to match. CSS variables and the `.gold-rule` class renamed to neutral names (`--accent`, `.accent-rule`). Hero name now on a single line, with the size following the space available (about 93 px on a wide desktop, 34 px on a phone); on portrait phones and tablets it uses the full screen width.
 - **v1 (2026-10-22):** Home, Music, News, Gallery, Bio and Contact sections. Responsive hero photo crops. Contact form with Formspree support and an email fallback. Share-preview tags.
