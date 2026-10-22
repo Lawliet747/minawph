@@ -27,10 +27,10 @@ img/
   background-tablet.webp    Hero photo for portrait tablets (3:4)
   background-mobile.webp    Hero photo for portrait phones (9:16)
   portrait.webp             Bio and gallery photo
-  favicon.png               Tab icon and header logo (100 x 100)
-  favicon-192.png           Larger icon (scaled up from the 100 px original)
-  favicon-512.png           Larger icon (scaled up from the 100 px original)
+  favicon.svg               Sun mark: tab icon and header logo (sharp at any size)
+  favicon-32/100/192/512.png  PNG versions of the sun mark for browsers that need them
   apple-touch-icon.png      iPhone home-screen icon
+  logo-minaw.svg / .png     Full logo: sun with the MINAW wordmark
   og-image.jpg              Link preview image (1200 x 630)
 ```
 
@@ -69,7 +69,7 @@ Until step 2 is done, the Send button opens the visitor's email app instead.
 ## How it works
 
 - **Hero photo:** A `<picture>` element picks the desktop, tablet or mobile crop. The mobile and tablet crops were made from the desktop photo, with the dark background extended upward to leave room for the name.
-- **Nav:** It stays pinned on tablets and desktops. On phones it wraps onto two rows.
+- **Nav:** It stays pinned on tablets and desktops. On phones it is one row you can swipe, with arrow buttons at each end.
 - **Fonts:** Oswald and Playfair Display come from Google Fonts. The social icons use Font Awesome.
 - **Security:** `index.html` has a Content Security Policy that lists what the page may load. If you add something new (a Spotify or YouTube embed, analytics, another font host), add its address to the policy, or the browser will block it.
 
