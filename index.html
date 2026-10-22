@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0a0a0a">
+
+  <!--
+    Content Security Policy: the browser may only load what this page actually uses.
+    - Scripts and images: this site only
+    - Styles: this site, Google Fonts and Font Awesome; fonts: Google Fonts and Font Awesome
+    - Form messages: Formspree only
+    If you add something new (a Spotify/YouTube embed, analytics, another font host),
+    add its address here, or the browser will block it.
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self'; connect-src https://formspree.io; form-action https://formspree.io; base-uri 'self'; object-src 'none'">
+
+  <!-- TODO: title/description are neutral until the real bio and tagline are ready -->
+  <title>Anthony Joseph Robles | Official Website</title>
+  <meta name="description" content="Official website of Anthony Joseph Robles | music, updates, and upcoming shows.">
+  <meta name="author" content="Anthony Joseph Robles">
+
+  <!-- Link previews (WhatsApp, Messenger, X, Discord...) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Anthony Joseph Robles | Official Website">
+  <meta property="og:description" content="Official website of Anthony Joseph Robles | music, updates, and upcoming shows.">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- TODO once the live address is known, add these (they must be full https:// addresses):
+  <link rel="canonical" href="https://YOUR-DOMAIN/">
+  <meta property="og:url" content="https://YOUR-DOMAIN/">
+  <meta property="og:image" content="https://YOUR-DOMAIN/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Anthony Joseph Robles in a denim jacket and earphones, lit in gold">
+  <meta name="twitter:image" content="https://YOUR-DOMAIN/img/og-image.jpg">
+  -->
+
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+
+  <!-- Fonts: only the weights the page uses, and connections opened early -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500&family=Playfair+Display:ital,wght@1,600&display=swap">
+
+  <!-- TODO: Font Awesome is only used for the three social icons. Once the final networks are
+       chosen, swap them for inline SVGs and delete this line. -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top navigation -->
+  <header class="topbar">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <a class="brand" href="#home" aria-label="Anthony Joseph Robles, back to top">
+      <img src="img/favicon.png" alt="" width="40" height="40">
+    </a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#home" aria-current="true">HOME</a>
+      <a href="#music">MUSIC</a>
+      <a href="#shows">SHOWS</a>
+      <a href="#news">NEWS</a>
+      <a href="#gallery">GALLERY</a>
+      <a href="#bio">BIO</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+
+    <!-- TODO: replace each href="#" with the real profile address and add
+         target="_blank" rel="noopener noreferrer" -->
+    <nav class="socials" aria-label="Social media">
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter" aria-hidden="true"></i></a>
+      <a href="#" aria-label="Vimeo"><i class="fa-brands fa-vimeo-v" aria-hidden="true"></i></a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ===================================================================
+         HOME
+         =================================================================== -->
+    <section class="hero" id="home" aria-labelledby="artist-name">
+
+      <!-- Background: a different crop for phones and portrait tablets, so he stays in frame -->
+      <picture class="hero-bg">
+        <source media="(max-width: 767px) and (orientation: portrait)" srcset="img/background-mobile.webp">
+        <source media="(min-width: 768px) and (max-width: 1100px) and (orientation: portrait)" srcset="img/background-tablet.webp">
+        <img src="img/background-desktop.webp" width="1671" height="941" fetchpriority="high" decoding="async"
+             alt="Anthony Joseph Robles in a denim jacket and earphones, lit in gold">
+      </picture>
+
+      <div class="hero-copy">
+        <h1 id="artist-name">Anthony Joseph Robles</h1>
+        <!-- TODO: placeholder tagline, replace with the real one -->
+        <p>Tech Support Analyst · Aspiring Web Developer · OPM Listener</p>
+      </div>
+
+      <section class="show-panel" id="shows" aria-labelledby="shows-title">
+        <h2 id="shows-title">Upcoming Shows</h2>
+        <!-- TODO: put the next real date here. (Previous text: "Caloocan City, August 2026") -->
+        <p>New dates announced soon</p>
+        <div class="gold-rule" aria-hidden="true"></div>
+      </section>
+
+    </section>
+
+    <!-- ===================================================================
+         MUSIC
+         TODO: replace the placeholder releases. Point each "Listen now" link at the real
+         Spotify / YouTube / Apple Music address (add target="_blank" rel="noopener noreferrer").
+         To show real cover art, put an <img> inside .cover in place of the gold monogram.
+         =================================================================== -->
+    <section class="section" id="music" aria-labelledby="music-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 class="section-title" id="music-title">Music</h2>
+          <p class="section-lead">New music is on the way. Releases will appear here as they come out.</p>
+          <div class="gold-rule" aria-hidden="true"></div>
+        </div>
+
+        <ul class="release-grid">
+          <li class="release card">
+            <div class="cover" aria-hidden="true">
+              <img src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
+            </div>
+            <div class="card-body">
+              <p class="tag">Latest release</p>
+              <h3>Release title</h3>
+              <p class="meta">Single · 2026</p>
+              <p>A short note about the song: what it is about, who it is for, or how it was made.</p>
+              <a class="btn btn-primary" href="#">Listen now</a>
+            </div>
+          </li>
+          <li class="release card">
+            <div class="cover" aria-hidden="true">
+              <img src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
+            </div>
+            <div class="card-body">
+              <p class="tag">Coming soon</p>
+              <h3>Release title</h3>
+              <p class="meta">Year</p>
+              <p>A short description of the next release.</p>
+            </div>
+          </li>
+          <li class="release card">
+            <div class="cover" aria-hidden="true">
+              <img src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
+            </div>
+            <div class="card-body">
+              <p class="tag">Coming soon</p>
+              <h3>Release title</h3>
+              <p class="meta">Year</p>
+              <p>A short description of the next release.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         NEWS
+         TODO: keep the newest story first. Copy one <li> per story and update the date
+         (both the datetime="" value and the visible text).
+         =================================================================== -->
+    <section class="section section--alt" id="news" aria-labelledby="news-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 class="section-title" id="news-title">News</h2>
+          <p class="section-lead">Updates, releases and announcements.</p>
+          <div class="gold-rule" aria-hidden="true"></div>
+        </div>
+
+        <ul class="news-list">
+          <li class="news-item">
+            <time datetime="2026-10-22">22 Oct 2026</time>
+            <div>
+              <h3>The new website is taking shape</h3>
+              <p>Music, shows, photos and a way to get in touch are being added. Check back soon for the first updates.</p>
+            </div>
+          </li>
+          <li class="news-item">
+            <span class="news-date">Coming soon</span>
+            <div>
+              <h3>News headline</h3>
+              <p>A short summary of the story goes here, in one or two sentences.</p>
+            </div>
+          </li>
+          <li class="news-item">
+            <span class="news-date">Coming soon</span>
+            <div>
+              <h3>News headline</h3>
+              <p>A short summary of the story goes here, in one or two sentences.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         GALLERY
+         TODO: the big tile shows an existing photo as a sample. Replace it, and swap each
+         dashed placeholder for a real photo, for example:
+           <li><div class="shot"><img src="img/gallery-2.webp" alt="Describe the photo" width="800" height="600" loading="lazy"></div></li>
+         Use .shot--lg (big square) and .shot--wide (double width) to vary the layout.
+         Keep photos around 800 px wide and under about 150 KB each (WebP).
+         =================================================================== -->
+    <section class="section" id="gallery" aria-labelledby="gallery-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 class="section-title" id="gallery-title">Gallery</h2>
+          <p class="section-lead">Moments from the stage and the studio.</p>
+          <div class="gold-rule" aria-hidden="true"></div>
+        </div>
+
+        <ul class="gallery-grid">
+          <li class="shot shot--lg shot--photo">
+            <img src="img/portrait.webp" width="600" height="750" loading="lazy"
+                 alt="Anthony Joseph Robles, smiling and looking to the side">
+          </li>
+          <li class="shot is-placeholder" aria-hidden="true"><img src="img/favicon.png" alt="" width="100" height="100" loading="lazy"></li>
+          <li class="shot is-placeholder" aria-hidden="true"><img src="img/favicon.png" alt="" width="100" height="100" loading="lazy"></li>
+          <li class="shot is-placeholder" aria-hidden="true"><img src="img/favicon.png" alt="" width="100" height="100" loading="lazy"></li>
+          <li class="shot is-placeholder" aria-hidden="true"><img src="img/favicon.png" alt="" width="100" height="100" loading="lazy"></li>
+          <li class="shot shot--wide is-placeholder" aria-hidden="true"><img src="img/favicon.png" alt="" width="100" height="100" loading="lazy"></li>
+          <li class="shot is-placeholder" aria-hidden="true"><img src="img/favicon.png" alt="" width="100" height="100" loading="lazy"></li>
+          <li class="shot is-placeholder" aria-hidden="true"><img src="img/favicon.png" alt="" width="100" height="100" loading="lazy"></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         BIO
+         TODO: write the real story. The text below is a placeholder, and the three facts
+         should be filled in or removed.
+         =================================================================== -->
+    <section class="section section--alt" id="bio" aria-labelledby="bio-title">
+      <div class="wrap bio-grid">
+        <figure class="portrait">
+          <img src="img/portrait.webp" width="600" height="750" loading="lazy"
+               alt="Portrait of Anthony Joseph Robles, smiling and looking to the side">
+        </figure>
+
+        <div class="bio-copy">
+          <div class="section-head">
+            <h2 class="section-title" id="bio-title">Bio</h2>
+            <p class="section-lead">A line that sums up who you are as an artist.</p>
+            <div class="gold-rule" aria-hidden="true"></div>
+          </div>
+          <p>Start with where the music began: when you first picked up an instrument or started writing songs, and what pulled you in.</p>
+          <p>Then say what you make now, what inspires it, and what listeners can expect from a record or a live show.</p>
+
+          <dl class="facts">
+            <dt>Based in</dt><dd>Metro Manila, Philippines</dd>
+            <dt>Genre</dt><dd>To be added</dd>
+            <dt>Role</dt><dd>To be added</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         CONTACT
+         Works like the AJR Dev Log form (script.js checks the fields, then sends them to Formspree).
+         TODO: 1) In Formspree, create a form for this site and replace YOUR_FORM_ID below with its ID.
+                  Add this site's address to that form's allowed domains. A form that is
+                  restricted to ajrdevlog.pages.dev will send messages from this site to Spam.
+               2) Confirm the email address (used for the direct link and as the fallback).
+         Until YOUR_FORM_ID is replaced, the Send button opens the visitor's email app instead.
+         =================================================================== -->
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="wrap contact-grid">
+        <div class="contact-copy">
+          <div class="section-head">
+            <h2 class="section-title" id="contact-title">Contact</h2>
+            <p class="section-lead">Bookings, collaborations, press, or just to say hi.</p>
+            <div class="gold-rule" aria-hidden="true"></div>
+          </div>
+          <p>Send a message with a few details and I'll reply by email.</p>
+
+          <ul class="contact-links">
+            <li><a href="mailto:anthonyjosephrobles13@gmail.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7.5 12 13.5l8.5-6"/></svg><span>anthonyjosephrobles13@gmail.com</span></a></li>
+            <li><a href="https://m.me/Anthony757" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4.5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-7.5L7 20v-3.5H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z"/><circle cx="8.5" cy="10.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="12" cy="10.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="15.5" cy="10.5" r="0.9" fill="currentColor" stroke="none"/></svg><span>Messenger</span></a></li>
+            <!-- TODO: Instagram, YouTube, Spotify... add the ones you use, in the same format
+            <li><a href="https://instagram.com/username/" target="_blank" rel="me noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span>Instagram</span></a></li>
+            -->
+          </ul>
+        </div>
+
+        <form id="contact-form" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" data-fallback-email="anthonyjosephrobles13@gmail.com" novalidate>
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="topic">What is this about?</label>
+            <select id="topic" name="topic">
+              <option>General message</option>
+              <option>Booking a show</option>
+              <option>Collaboration</option>
+              <option>Press and media</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <input type="hidden" name="_subject" value="New message from the website">
+          <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn-primary" type="submit">Send message</button>
+          <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year">2026</span> Anthony Joseph Robles. All rights reserved.</p>
+    <a href="#home">Back to top <span aria-hidden="true">&uarr;</span></a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
