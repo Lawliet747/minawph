@@ -80,12 +80,78 @@ body {
   height: 40px;
 }
 
-.nav-links {
+/* Nav row: one line that scrolls sideways when it does not fit, with arrow buttons at each end */
+.nav-scroller {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  min-width: 0;
+  margin-right: auto;
+}
+
+.nav-links {
+  position: relative; /* script.js measures link positions from here */
+  display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   gap: 0 1.5rem;
-  margin-right: auto;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-links::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-links a {
+  flex: none;
+}
+
+.nav-arrow {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--gold-text);
+  cursor: pointer;
+  transition: opacity 200ms ease, color 200ms ease;
+}
+
+.nav-arrow[hidden] {
+  display: none;
+}
+
+.nav-arrow svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.nav-arrow:hover:not(:disabled) {
+  color: #fff;
+}
+
+.nav-arrow:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.nav-arrow:focus-visible {
+  outline: 2px solid var(--gold-text);
+  outline-offset: -2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nav-links { scroll-behavior: smooth; }
 }
 
 .nav-links a,
@@ -152,6 +218,10 @@ body {
 .socials a:focus-visible {
   outline: 2px solid var(--gold-text);
   outline-offset: 3px;
+}
+
+.nav-links a:focus-visible {
+  outline-offset: -2px; /* inside the box: the scrolling row would clip an outer ring */
 }
 
 .skip-link {
@@ -377,7 +447,7 @@ main {
    ========================================================================== */
 @media (max-width: 767px) {
   :root {
-    --topbar-h: 121px; /* logo row + two rows of nav links */
+    --topbar-h: 84px; /* logo row + one row of nav links */
   }
 
   /* Row 1: logo + social icons. Row 2+: the nav links wrap instead of hiding behind a scroll */
@@ -394,16 +464,20 @@ main {
     order: 2;
   }
 
-  .nav-links {
+  .nav-scroller {
     order: 3;
     flex: 1 0 100%;
     margin-right: 0;
+  }
+
+  .nav-links {
+    flex: 1;
     gap: 0 1.1rem;
   }
 
   .hero {
-    min-height: max(40rem, calc(100vh - var(--topbar-h, 121px)));
-    min-height: max(40rem, calc(100svh - var(--topbar-h, 121px)));
+    min-height: max(40rem, calc(100vh - var(--topbar-h, 84px)));
+    min-height: max(40rem, calc(100svh - var(--topbar-h, 84px)));
   }
 
   .show-panel {

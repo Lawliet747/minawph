@@ -1,5 +1,5 @@
 /* Anthony Joseph Robles — script.js
-   Four jobs: fill in the footer year, keep the top bar height up to date, highlight the nav link for the section in view,
+   Five jobs: fill in the footer year, keep the top bar height up to date, run the nav arrows, highlight the nav link for the section in view,
    and check and send the contact form. Everything sits inside one function so nothing
    leaks into the page. */
 (() => {
@@ -22,6 +22,44 @@
     else window.addEventListener("resize", apply);
   }
 
+  /* ---------- Scrollable nav (arrow buttons) ---------- */
+  let centreLink = () => {}; // filled in below; the highlight code uses it to keep the current link in view
+
+  function initNavScroller() {
+    const scroller = document.querySelector(".nav-scroller");
+    if (!scroller) return;
+    const row = scroller.querySelector(".nav-links");
+    const prev = scroller.querySelector(".nav-arrow--prev");
+    const next = scroller.querySelector(".nav-arrow--next");
+    if (!row || !prev || !next) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const behavior = () => (reduceMotion.matches ? "auto" : "smooth");
+
+    function update() {
+      const overflowing = row.scrollWidth > row.clientWidth + 1;
+      prev.hidden = !overflowing; // arrows only appear when the links do not all fit
+      next.hidden = !overflowing;
+      if (!overflowing) return;
+      prev.disabled = row.scrollLeft <= 1;
+      next.disabled = row.scrollLeft + row.clientWidth >= row.scrollWidth - 1;
+    }
+
+    prev.addEventListener("click", () => row.scrollBy({ left: -row.clientWidth * 0.6, behavior: behavior() }));
+    next.addEventListener("click", () => row.scrollBy({ left: row.clientWidth * 0.6, behavior: behavior() }));
+    row.addEventListener("scroll", update, { passive: true });
+    if ("ResizeObserver" in window) new ResizeObserver(update).observe(row);
+    else window.addEventListener("resize", update);
+
+    // Scroll the row (never the page) so the given link sits in the middle
+    centreLink = (link) => {
+      if (row.scrollWidth <= row.clientWidth + 1) return;
+      row.scrollTo({ left: link.offsetLeft - (row.clientWidth - link.offsetWidth) / 2, behavior: behavior() });
+    };
+
+    update();
+  }
+
   /* ---------- Nav highlighting ---------- */
   function initNavHighlight() {
     if (!("IntersectionObserver" in window)) return; // feature detection: leave HOME highlighted
@@ -42,6 +80,7 @@
         if (link === current) link.setAttribute("aria-current", "true");
         else link.removeAttribute("aria-current");
       });
+      if (current) centreLink(current);
     }
 
     const observer = new IntersectionObserver(
@@ -159,6 +198,7 @@
   }
 
   trackTopbarHeight();
+  initNavScroller();
   initNavHighlight();
   initContactForm();
 })();
