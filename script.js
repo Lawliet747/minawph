@@ -1,5 +1,5 @@
 /* Anthony Joseph Robles — script.js
-   Five jobs: fill in the footer year, keep the top bar height up to date, run the nav arrows, highlight the nav link for the section in view,
+   Six jobs: fill in the footer year, keep the top bar height up to date, fit the hero name on one line, run the nav arrows, highlight the nav link for the section in view,
    and check and send the contact form. Everything sits inside one function so nothing
    leaks into the page. */
 (() => {
@@ -20,6 +20,41 @@
     apply();
     if ("ResizeObserver" in window) new ResizeObserver(apply).observe(bar);
     else window.addEventListener("resize", apply);
+  }
+
+  /* ---------- Hero name: one line, as large as the room allows ---------- */
+  // The name must stay on a single line, so its size comes from its real width in whichever font
+  // is showing (the web font, or a fallback while that loads) instead of a fixed guess. Width
+  // grows in step with font size, so one measurement gives the exact size. CSS has a starting
+  // estimate for the moment before this runs.
+  function initHeroName() {
+    const box = document.querySelector(".hero-copy");
+    const name = box && box.querySelector("h1");
+    if (!name) return;
+    const MIN_PX = 16;
+    const MAX_PX = 96;
+    const FILL = 0.97; // leave a little breathing room at the end of the line
+
+    function fit() {
+      name.style.fontSize = ""; // back to the CSS estimate, then measure
+      const size = parseFloat(getComputedStyle(name).fontSize);
+      const width = name.getBoundingClientRect().width; // the h1 is width: max-content
+      const room = box.clientWidth;
+      if (!width || !room) return;
+      const next = Math.min(MAX_PX, Math.max(MIN_PX, (size * room * FILL) / width));
+      name.style.fontSize = `${Math.floor(next * 10) / 10}px`;
+    }
+
+    fit();
+    if (document.fonts) {
+      document.fonts.ready.then(fit);
+      document.fonts.addEventListener("loadingdone", fit); // re-fit once the web font arrives
+    }
+    let frame = 0;
+    window.addEventListener("resize", () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(fit);
+    });
   }
 
   /* ---------- Scrollable nav (arrow buttons) ---------- */
@@ -198,6 +233,7 @@
   }
 
   trackTopbarHeight();
+  initHeroName();
   initNavScroller();
   initNavHighlight();
   initContactForm();

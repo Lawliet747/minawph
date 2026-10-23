@@ -3,7 +3,7 @@
 A one-page musician profile site built with plain HTML, CSS and JavaScript. There is no framework and no build step.
 
 - **Live site:** https://minawph.pages.dev/
-- **Version:** v4.1 (23 October 2026)
+- **Version:** v4.3 (23 October 2026)
 
 ## What's on the page
 
@@ -23,7 +23,8 @@ index.html     Page content and structure
 styles.css     Colours, fonts, layout, responsive rules
 script.js      Nav highlighting, footer year, contact form
 img/
-  background-desktop.webp   Hero photo for wide screens and landscape
+  background-desktop.webp   Hero photo for wide screens and landscape (1376 x 768)
+  background-desktop.jpg    Full-quality copy of the hero photo (not loaded by the page)
   background-tablet.webp    Hero photo for portrait tablets (3:4)
   background-mobile.webp    Hero photo for portrait phones (9:16)
   portrait.webp             Bio and gallery photo (cropped from the hero photo)
@@ -87,9 +88,9 @@ Until step 2 is done, the Send button opens the visitor's email app instead.
 ## How it works
 
 - **Hero photo:** A `<picture>` element picks the desktop, tablet or mobile crop. The mobile and tablet crops were made from the desktop photo, with the background extended upward and faded to navy to leave room for the name. A soft navy tint over the hero (in `.hero::after`) keeps the name readable where it crosses the light stripe.
-- **Hero name:** It stays on one line (`white-space: nowrap`), and its font size is worked out from the room available (`--name-room` in `styles.css`). The full name is about 9.7 times the font size wide, so the size is that room divided by 10.3. If you change the name, the tagline font or the letter spacing, adjust that 10.3 so the name still fits.
+- **Hero name:** It stays on one line (`white-space: nowrap`). `script.js` (`initHeroName`) measures the name's real width in whichever font is showing and sets the font size so it fills the available room (`--name-room` in `styles.css`), up to 96 px. It re-fits when the web font finishes loading and when the window is resized, so changing the font needs no recalculation. The size in the CSS is only a starting estimate for the instant before the script runs.
 - **Nav:** It stays pinned on tablets and desktops. On phones it is one row you can swipe, with arrow buttons at each end.
-- **Fonts:** Oswald and Playfair Display come from Google Fonts. The social icons use Font Awesome.
+- **Fonts:** Josefin Sans (headings and titles) and Playfair Display (the italic tagline and lead lines) come from Google Fonts. The social icons use Font Awesome. To try another heading font, change the family name in the Google Fonts `<link>` in `index.html` and `--font-display` in `styles.css`; the hero name resizes itself to fit. Good alternatives for the same feel: Jost (closer to Futura), Righteous (rounded 70s style), Syncopate (very wide and retro-futuristic; the name will be smaller).
 - **Security:** `index.html` has a Content Security Policy that lists what the page may load. If you add something new (a Spotify or YouTube embed, analytics, another font host), add its address to the policy, or the browser will block it.
 
 ## Publish
@@ -98,5 +99,7 @@ The site is hosted on Cloudflare Pages. Pushing to the `main` branch on GitHub r
 
 ## Release history
 
+- **v4.3 (2026-10-23):** Heading font changed from Oswald to Josefin Sans, a geometric vintage-style typeface with wider letter spacing for a city pop feel. The hero name now sizes itself to fit on one line in any font.
+- **v4.2 (2026-10-23):** New hero photo. The phone and tablet hero crops, the Bio and Gallery portrait and the share image were rebuilt from it, so every size shows the same pose. `background-desktop.jpg` is the full-quality copy of the hero photo; the site itself uses the `.webp` files.
 - **v4.1 (2026-10-23):** New blue colour scheme taken from the hero photo, replacing the gold. Logo, favicons, share image, portrait and the mobile and tablet hero crops recoloured or rebuilt to match. CSS variables and the `.gold-rule` class renamed to neutral names (`--accent`, `.accent-rule`). Hero name now on a single line, with the size following the space available (about 93 px on a wide desktop, 34 px on a phone); on portrait phones and tablets it uses the full screen width.
 - **v1 (2026-10-22):** Home, Music, News, Gallery, Bio and Contact sections. Responsive hero photo crops. Contact form with Formspree support and an email fallback. Share-preview tags.
