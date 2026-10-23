@@ -1,9 +1,9 @@
-# Anthony Joseph Robles: Official Website
+# Minaw: Official Website
 
 A one-page musician profile site built with plain HTML, CSS and JavaScript. There is no framework and no build step.
 
 - **Live site:** https://minawph.pages.dev/
-- **Version:** v4.3 (23 October 2026)
+- **Version:** v4.5 (23 October 2026)
 
 ## What's on the page
 
@@ -23,8 +23,7 @@ index.html     Page content and structure
 styles.css     Colours, fonts, layout, responsive rules
 script.js      Nav highlighting, footer year, contact form
 img/
-  background-desktop.webp   Hero photo for wide screens and landscape (1376 x 768)
-  background-desktop.jpg    Full-quality copy of the hero photo (not loaded by the page)
+  background-desktop.webp   Hero photo for wide screens and landscape (1679 x 937)
   background-tablet.webp    Hero photo for portrait tablets (3:4)
   background-mobile.webp    Hero photo for portrait phones (9:16)
   portrait.webp             Bio and gallery photo (cropped from the hero photo)
@@ -63,15 +62,11 @@ If the hero photo changes, the logo files (`favicon*.png`, `logo-minaw.*`, `appl
 
 Each item is marked with a `TODO` comment in `index.html`.
 
-- [ ] Tagline under the name (currently a placeholder)
 - [ ] Upcoming shows text
 - [ ] Music: release titles, cover art, and the "Listen now" links
 - [ ] News: replace the two "Coming soon" items as stories come in
 - [ ] Gallery: replace the dashed placeholders with real photos (about 800 px wide, under 150 KB, WebP)
-- [ ] Bio: write the story, then fill in Genre and Role
-- [ ] Social icons: Instagram, YouTube and Spotify links, with `target="_blank" rel="noopener noreferrer"`
 - [ ] Contact form: replace `YOUR_FORM_ID` (see below)
-- [ ] Confirm the email address used in the Contact section
 
 ## Contact form
 
@@ -88,7 +83,7 @@ Until step 2 is done, the Send button opens the visitor's email app instead.
 ## How it works
 
 - **Hero photo:** A `<picture>` element picks the desktop, tablet or mobile crop. The mobile and tablet crops were made from the desktop photo, with the background extended upward and faded to navy to leave room for the name. A soft navy tint over the hero (in `.hero::after`) keeps the name readable where it crosses the light stripe.
-- **Hero name:** It stays on one line (`white-space: nowrap`). `script.js` (`initHeroName`) measures the name's real width in whichever font is showing and sets the font size so it fills the available room (`--name-room` in `styles.css`), up to 96 px. It re-fits when the web font finishes loading and when the window is resized, so changing the font needs no recalculation. The size in the CSS is only a starting estimate for the instant before the script runs.
+- **Hero name:** It stays on one line (`white-space: nowrap`). `script.js` (`initHeroName`) measures the name's real width in whichever font is showing and sets the font size so it fills the available room (`--name-room` in `styles.css`), up to a ceiling set in CSS (`--name-max`: about 165 px on a wide desktop, 144 px on a tablet). The ceiling grows with the screen width so the end of the name stays clear of the light stripe in the photo. It re-fits when the web font finishes loading and when the window is resized. To make the name bigger or smaller, change `--name-max` (and `--name-room` for the space it may use).
 - **Nav:** It stays pinned on tablets and desktops. On phones it is one row you can swipe, with arrow buttons at each end.
 - **Fonts:** Josefin Sans (headings and titles) and Playfair Display (the italic tagline and lead lines) come from Google Fonts. The social icons use Font Awesome. To try another heading font, change the family name in the Google Fonts `<link>` in `index.html` and `--font-display` in `styles.css`; the hero name resizes itself to fit. Good alternatives for the same feel: Jost (closer to Futura), Righteous (rounded 70s style), Syncopate (very wide and retro-futuristic; the name will be smaller).
 - **Security:** `index.html` has a Content Security Policy that lists what the page may load. If you add something new (a Spotify or YouTube embed, analytics, another font host), add its address to the policy, or the browser will block it.
@@ -99,6 +94,8 @@ The site is hosted on Cloudflare Pages. Pushing to the `main` branch on GitHub r
 
 ## Release history
 
+- **v4.5 (2026-10-23):** Hero name made much bigger (about 165 px on a wide desktop, up from 96 px); its maximum size is now set in CSS (`--name-max`). Facebook link added to the top bar beside Instagram. Contact email changed to minawph.music@gmail.com and the Messenger link updated.
+- **v4.4 (2026-10-23):** New hero photo of Minaw, with the name, tagline, bio, Genre and Role updated to match. The phone and tablet hero crops, the Bio and Gallery portrait (now a true 4:5 crop) and the share image were rebuilt from the new photo. The hero text sits slightly further right to clear his glasses.
 - **v4.3 (2026-10-23):** Heading font changed from Oswald to Josefin Sans, a geometric vintage-style typeface with wider letter spacing for a city pop feel. The hero name now sizes itself to fit on one line in any font.
 - **v4.2 (2026-10-23):** New hero photo. The phone and tablet hero crops, the Bio and Gallery portrait and the share image were rebuilt from it, so every size shows the same pose. `background-desktop.jpg` is the full-quality copy of the hero photo; the site itself uses the `.webp` files.
 - **v4.1 (2026-10-23):** New blue colour scheme taken from the hero photo, replacing the gold. Logo, favicons, share image, portrait and the mobile and tablet hero crops recoloured or rebuilt to match. CSS variables and the `.gold-rule` class renamed to neutral names (`--accent`, `.accent-rule`). Hero name now on a single line, with the size following the space available (about 93 px on a wide desktop, 34 px on a phone); on portrait phones and tablets it uses the full screen width.

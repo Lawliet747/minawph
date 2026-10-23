@@ -1,4 +1,4 @@
-/* Anthony Joseph Robles — script.js
+/* Minaw — script.js
    Six jobs: fill in the footer year, keep the top bar height up to date, fit the hero name on one line, run the nav arrows, highlight the nav link for the section in view,
    and check and send the contact form. Everything sits inside one function so nothing
    leaks into the page. */
@@ -32,16 +32,17 @@
     const name = box && box.querySelector("h1");
     if (!name) return;
     const MIN_PX = 16;
-    const MAX_PX = 96;
     const FILL = 0.97; // leave a little breathing room at the end of the line
 
     function fit() {
+      name.style.fontSize = "var(--name-max)"; // the CSS ceiling, in px
+      const maxPx = parseFloat(getComputedStyle(name).fontSize);
       name.style.fontSize = ""; // back to the CSS estimate, then measure
       const size = parseFloat(getComputedStyle(name).fontSize);
       const width = name.getBoundingClientRect().width; // the h1 is width: max-content
       const room = box.clientWidth;
       if (!width || !room) return;
-      const next = Math.min(MAX_PX, Math.max(MIN_PX, (size * room * FILL) / width));
+      const next = Math.min(maxPx, Math.max(MIN_PX, (size * room * FILL) / width));
       name.style.fontSize = `${Math.floor(next * 10) / 10}px`;
     }
 

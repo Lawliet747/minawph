@@ -1,4 +1,4 @@
-/* Anthony Joseph Robles — styles.css
+/* Minaw — styles.css
    Fonts are loaded from index.html (not @import), so they don't block rendering in a chain. */
 
 :root {
@@ -296,9 +296,12 @@ main {
 }
 
 /* On desktop and landscape he sits on the left, so the text goes in the right-hand area:
-   from just right of his head (about 47% across) to the page margin */
+   from just right of his head (about 52% across) to the page margin */
 .hero-copy {
-  --name-room: calc(53vw - var(--gutter)); /* the width the name can use */
+  --name-room: calc(48vw - var(--gutter)); /* the width the name can use */
+  /* The largest the name may be. It scales with the screen so the end of the name stays clear of
+     the light diagonal stripe in the photo; it is also never wider than the room above. */
+  --name-max: min(8.6vw, 11rem);
   width: var(--name-room);
   margin-left: auto;
 }
@@ -307,9 +310,9 @@ main {
   color: var(--ice);
   font-family: var(--font-display);
   /* The name stays on one line. script.js measures its real width in whichever font is showing
-     and sets the size so it fills the room; this is only the starting estimate (the full name
-     is roughly 13 times the font size wide) for the moment before that runs. */
-  font-size: clamp(1rem, calc(var(--name-room) / 13.5), 6rem);
+     and sets the size so it fills the room, up to --name-max; this is only the starting estimate
+     ("MINAW" is roughly 4 times the font size wide) for the moment before that runs. */
+  font-size: clamp(1rem, calc(var(--name-room) / 4.3), var(--name-max));
   font-weight: 300;
   letter-spacing: 0.05em;
   line-height: 1.05;
@@ -418,6 +421,7 @@ main {
 
   .hero-copy {
     --name-room: calc(100vw - 2 * var(--gutter)); /* full width: the name sits above him */
+    --name-max: 9rem;
     width: 100%;
     margin-left: 0;
   }
@@ -705,7 +709,7 @@ main {
 }
 
 .shot--photo img {
-  object-position: 33% 28%;
+  object-position: 33% 6%; /* keeps the top of his head in the wide gallery tile */
 }
 
 .shot.is-placeholder {
