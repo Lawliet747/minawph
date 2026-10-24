@@ -415,12 +415,8 @@ main {
    (these queries match the <source> conditions in index.html)
    ========================================================================== */
 @media (max-width: 1100px) and (orientation: portrait) {
-  .hero-bg img {
-    object-position: 50% 100%; /* the generated crops put him at the bottom */
-  }
-
   .hero-copy {
-    --name-room: calc(100vw - 2 * var(--gutter)); /* full width: the name sits above him */
+    --name-room: calc(100vw - 2 * var(--gutter)); /* full width: the name sits above the photo */
     --name-max: 9rem;
     width: 100%;
     margin-left: 0;
@@ -502,6 +498,52 @@ main {
     font-size: 1.125rem;
   }
 }
+
+/* ==========================================================================
+   Portrait phones and tablets: name first, photo underneath
+   The name and tagline sit in their own band at the top and the photo is a fixed-shape block
+   below it, so they can never overlap him, whatever the screen height, browser bars or font size.
+   script.js reports where the text ends in --hero-text-bottom (measured from the top of the hero).
+   ========================================================================== */
+@media (max-width: 1100px) and (orientation: portrait) {
+  .hero {
+    /* Tall enough for the text band plus the whole photo; taller screens just get more navy between */
+    --photo-ratio: 1.25; /* photo height / width: the phone crop is 4:5 */
+    min-height: max(
+      calc(100vh - var(--topbar-h, 56px)),
+      calc(var(--hero-text-bottom, 11rem) + 100vw * var(--photo-ratio))
+    );
+    min-height: max(
+      calc(100svh - var(--topbar-h, 56px)), /* the visible screen, with the browser bars showing */
+      calc(var(--hero-text-bottom, 11rem) + 100vw * var(--photo-ratio))
+    );
+  }
+
+  .hero-bg {
+    inset: auto 0 0 0; /* pinned to the bottom, full width */
+    aspect-ratio: 1 / var(--photo-ratio);
+  }
+
+  .hero-bg img {
+    object-position: 50% 0;
+    /* the photo fades in from the navy page colour at its top edge (short, so his hair stays solid) */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 6%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 6%);
+  }
+
+  /* Only the bottom needs darkening now (behind the shows panel) */
+  .hero::after {
+    background: linear-gradient(to top, rgba(7, 13, 22, 0.85) 0%, rgba(7, 13, 22, 0) 38%);
+  }
+}
+
+/* Portrait tablets: the photo is square */
+@media (min-width: 768px) and (max-width: 1100px) and (orientation: portrait) {
+  .hero {
+    --photo-ratio: 1;
+  }
+}
+
 
 /* ==========================================================================
    Page sections: Music, News, Gallery, Bio, Contact
