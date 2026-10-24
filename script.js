@@ -44,6 +44,13 @@
       if (!width || !room) return;
       const next = Math.min(maxPx, Math.max(MIN_PX, (size * room * FILL) / width));
       name.style.fontSize = `${Math.floor(next * 10) / 10}px`;
+      reportTextBottom();
+    }
+
+    // Tell the CSS where the name and tagline end, so the photo can start below them on portrait screens.
+    function reportTextBottom() {
+      const hero = box.closest(".hero");
+      if (hero) hero.style.setProperty("--hero-text-bottom", `${box.offsetTop + box.offsetHeight + 12}px`);
     }
 
     fit();
