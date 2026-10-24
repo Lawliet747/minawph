@@ -3,7 +3,7 @@
 A one-page musician profile site built with plain HTML, CSS and JavaScript. There is no framework and no build step.
 
 - **Live site:** https://minawph.pages.dev/
-- **Version:** v4.8 (24 October 2026)
+- **Version:** v4.9 (24 October 2026)
 
 ## What's on the page
 
@@ -23,10 +23,12 @@ index.html     Page content and structure
 styles.css     Colours, fonts, layout, responsive rules
 script.js      Nav highlighting, footer year, contact form
 img/
-  background-desktop.webp   Hero photo for wide screens and landscape (1672 x 941)
+  background-desktop.webp   Hero photo for wide, high-density screens (2560 x 1440)
+  background-desktop-1920.webp  Same photo for ordinary desktop and laptop screens (1920 x 1080)
   background-tablet.webp    Hero photo for portrait tablets (square, 1200 x 1200)
   background-mobile.webp    Hero photo for portrait phones (4:5, 1080 x 1350)
-  portrait.webp             Bio and gallery photo (square, 1254 x 1254)
+  background-mobile-720.webp  Same photo for phones with lower-density screens (720 x 900)
+  portrait.webp             Bio and gallery photo (square, 1100 x 1100)
   favicon.svg               Sun mark: tab icon and header logo (sharp at any size)
   favicon-32/100/192/512.png  PNG versions of the sun mark for browsers that need them
   apple-touch-icon.png      iPhone home-screen icon
@@ -83,6 +85,7 @@ Until step 2 is done, the Send button opens the visitor's email app instead.
 ## How it works
 
 - **Hero photo:** A `<picture>` element picks the desktop, tablet or mobile image. On desktop and landscape the photo fills the hero and the name sits beside him. On phones and portrait tablets the name and tagline sit in their own band at the top and the photo is a fixed-shape block below it (4:5 on phones, square on tablets) that fades in from the page's navy at its top edge, so the text can never overlap him whatever the screen height, browser bars or font size. `script.js` reports where the text ends in `--hero-text-bottom`, and the hero's minimum height in `styles.css` keeps the whole photo visible. The phone and tablet images are plain crops with no baked-in fade, made from the square portrait photo (`portrait.webp`), which shows him larger and sharper than the desktop photo. To change them, crop to the same shape and keep his head at least 8% below the top edge, because the top 6% fades into the page. A soft navy tint over the desktop hero (in `.hero::after`) keeps the name readable where it crosses the light stripe.
+- **Image sizes:** Each hero photo comes in more than one size, and the browser downloads only the one the screen needs (`srcset` and `sizes` in `index.html`): a 1920 px laptop gets an 89 KB file instead of a 479 KB one. All photos are WebP at quality 76 to 80, which looks the same as the originals on screen. When you replace a photo, make each size from your largest original and keep the file names. A good rule is to keep each hero image under about 140 KB.
 - **Hero name:** It stays on one line (`white-space: nowrap`). `script.js` (`initHeroName`) measures the name's real width in whichever font is showing and sets the font size so it fills the available room (`--name-room` in `styles.css`), up to a ceiling set in CSS (`--name-max`: about 165 px on a wide desktop, 144 px on a tablet). The ceiling grows with the screen width so the end of the name stays clear of the light stripe in the photo. It re-fits when the web font finishes loading and when the window is resized. To make the name bigger or smaller, change `--name-max` (and `--name-room` for the space it may use).
 - **Nav:** It stays pinned on tablets and desktops. On phones it is one row you can swipe, with arrow buttons at each end.
 - **Fonts:** Josefin Sans (headings and titles) and Playfair Display (the italic tagline and lead lines) come from Google Fonts. The social icons use Font Awesome. To try another heading font, change the family name in the Google Fonts `<link>` in `index.html` and `--font-display` in `styles.css`; the hero name resizes itself to fit. Good alternatives for the same feel: Jost (closer to Futura), Righteous (rounded 70s style), Syncopate (very wide and retro-futuristic; the name will be smaller).
@@ -94,6 +97,7 @@ The site is hosted on Cloudflare Pages. Pushing to the `main` branch on GitHub r
 
 ## Release history
 
+- **v4.9 (2026-10-24):** New wide desktop background made from the square portrait photo, so the desktop, tablet and phone images all match. The share image was resized from 3840 x 2160 (985 KB) to the standard 1200 x 630 (88 KB). Images optimized for faster loading: the desktop photo went from 479 KB to 89 KB (1920 px) or 133 KB (2560 px) and the browser picks by screen; phones get 53 KB (720 px) or 94 KB (1080 px) instead of 122 KB; the tablet photo went from 110 KB to 83 KB; the portrait from 193 KB to 74 KB.
 - **v4.8 (2026-10-24):** Phone (4:5) and tablet (square) backgrounds rebuilt from the square portrait photo, which has more detail than the desktop photo. The fade at the top of the photo was shortened from 10% to 6% so his hair stays solid.
 - **v4.7 (2026-10-24):** Fixed the name and tagline overlapping his head on real phones. On portrait phones and tablets the photo now sits below the text instead of behind it, so the layout no longer depends on screen height, browser bars or the exact crop. The phone and tablet images are now plain 4:5 and square crops.
 - **v4.6 (2026-10-24):** New stage photo of Minaw with a microphone as the hero. The phone and tablet hero crops and the share image were rebuilt from it, the portrait is the new square one, and the alt text was updated to describe the new photo.
