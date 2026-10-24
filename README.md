@@ -3,7 +3,7 @@
 A one-page musician profile site built with plain HTML, CSS and JavaScript. There is no framework and no build step.
 
 - **Live site:** https://minawph.pages.dev/
-- **Version:** v4.9 (24 October 2026)
+- **Version:** v5.1 (25 October 2026)
 
 ## What's on the page
 
@@ -44,21 +44,23 @@ The contact form cannot be tested from a local file. See **Contact form** below.
 
 ## Colour palette
 
-The colours are sampled from the hero photo (navy denim jacket, blue wall, steel-grey light). They all live as variables at the top of `styles.css`, so a change there updates the whole site.
+A navy theme that sits alongside the blues in the hero photo. All colours live as variables at the top of `styles.css`, so changing them there changes the whole site. Translucent overlays use the bare-number versions (`--navy-rgb`, `--accent-rgb` and so on), so keep those in step with the matching colour.
 
 | Variable | Value | Used for |
 | --- | --- | --- |
-| `--bg-dark` | `#070d16` | Page background |
-| `--bg-bar` | `#04080f` | Top bar and footer |
-| `--alt` | `#0b1420` | Alternate section background |
-| `--ice` | `#e6edf5` | Hero name (light enough to read on the blue photo) |
-| `--accent-soft` | `#a9c4e2` | Section titles |
-| `--accent` | `#8fb2d9` | Links, tags, dates, icons, buttons, logo |
-| `--accent-hover` | `#b4cde8` | Hover state |
-| `--accent-line` | `#5f87b3` | Rules and underlines |
-| `--text` / `--muted` | `#cfd8e3` / `#9aa8ba` | Body copy / secondary text |
+| `--bg-dark` | `#0a1a35` | Page background (also `--navy-rgb`) |
+| `--bg-bar` | `#061429` | Top bar and footer (also `--panel-rgb`) |
+| `--alt` | `#0e2244` | Alternate section background |
+| `--tile` / `--tile-top` | `#112b52` / `#16335f` | Placeholder tiles and release covers |
+| `--field` | `#081730` | Form fields |
+| `--ice` | `#e9f1fc` | Hero name (light enough to read on the blue photo) |
+| `--accent-soft` | `#a5c6f5` | Section titles |
+| `--accent` | `#86b4f0` | Links, tags, dates, icons, buttons, logo (also `--accent-rgb`) |
+| `--accent-hover` | `#bcd6f8` | Hover state |
+| `--accent-line` | `#4f86cf` | Rules and underlines (also `--accent-line-rgb`) |
+| `--text` / `--muted` | `#cdd9ec` / `#9db0cc` | Body copy / secondary text |
 
-If the hero photo changes, the logo files (`favicon*.png`, `logo-minaw.*`, `apple-touch-icon.png`), `og-image.jpg` and `portrait.webp` should be refreshed to match.
+If you change `--accent` or `--bg-dark`, also regrade the photos (see Colour grade), refresh the logo files (`favicon*.png`, `favicon.svg`, `logo-minaw.*`) and `apple-touch-icon.png`, which carry those two colours, and the `theme-color` in `index.html`.
 
 ## Still to fill in
 
@@ -86,6 +88,7 @@ Until step 2 is done, the Send button opens the visitor's email app instead.
 
 - **Hero photo:** A `<picture>` element picks the desktop, tablet or mobile image. On desktop and landscape the photo fills the hero and the name sits beside him. On phones and portrait tablets the name and tagline sit in their own band at the top and the photo is a fixed-shape block below it (4:5 on phones, square on tablets) that fades in from the page's navy at its top edge, so the text can never overlap him whatever the screen height, browser bars or font size. `script.js` reports where the text ends in `--hero-text-bottom`, and the hero's minimum height in `styles.css` keeps the whole photo visible. The phone and tablet images are plain crops with no baked-in fade, made from the square portrait photo (`portrait.webp`), which shows him larger and sharper than the desktop photo. To change them, crop to the same shape and keep his head at least 8% below the top edge, because the top 6% fades into the page. A soft navy tint over the desktop hero (in `.hero::after`) keeps the name readable where it crosses the light stripe.
 - **Image sizes:** Each hero photo comes in more than one size, and the browser downloads only the one the screen needs (`srcset` and `sizes` in `index.html`): a 1920 px laptop gets an 89 KB file instead of a 479 KB one. All photos are WebP at quality 76 to 80, which looks the same as the originals on screen. When you replace a photo, make each size from your largest original and keep the file names. A good rule is to keep each hero image under about 140 KB.
+- **Colour grade:** All the photos (the three hero backgrounds, the Bio and Gallery portrait and the share image) are colour-graded to the navy theme. Only the blue backdrop is regraded: deeper navy in the shadows, the site's sky-blue accent in the light beams and stripe. Skin, hair, the jacket and the microphone are left untouched, and the teal reflection in his glasses is kept. When you swap a photo, ask for the same grade so it matches the page, and grade the original before making the smaller sizes.
 - **Hero name:** It stays on one line (`white-space: nowrap`). `script.js` (`initHeroName`) measures the name's real width in whichever font is showing and sets the font size so it fills the available room (`--name-room` in `styles.css`), up to a ceiling set in CSS (`--name-max`: about 165 px on a wide desktop, 144 px on a tablet). The ceiling grows with the screen width so the end of the name stays clear of the light stripe in the photo. It re-fits when the web font finishes loading and when the window is resized. To make the name bigger or smaller, change `--name-max` (and `--name-room` for the space it may use).
 - **Nav:** It stays pinned on tablets and desktops. On phones it is one row you can swipe, with arrow buttons at each end.
 - **Fonts:** Josefin Sans (headings and titles) and Playfair Display (the italic tagline and lead lines) come from Google Fonts. The social icons use Font Awesome. To try another heading font, change the family name in the Google Fonts `<link>` in `index.html` and `--font-display` in `styles.css`; the hero name resizes itself to fit. Good alternatives for the same feel: Jost (closer to Futura), Righteous (rounded 70s style), Syncopate (very wide and retro-futuristic; the name will be smaller).
@@ -97,6 +100,8 @@ The site is hosted on Cloudflare Pages. Pushing to the `main` branch on GitHub r
 
 ## Release history
 
+- **v5.1 (2026-10-25):** The navy theme now extends to the photos. The desktop, tablet and phone backgrounds, the portrait and the share image are colour-graded: a deeper navy backdrop with sky-blue accents in the light, while skin tones, hair, clothing and eye colour are unchanged. File sizes are about the same as v5.
+- **v5 (2026-10-25):** The theme moved from near-black to a richer navy blue (page, top bar, footer, sections, overlays and form fields), with a slightly brighter sky-blue accent. All colours are now variables in one place, including the translucent overlays. The logo, favicons and Apple icon were recoloured to match. Contrast stays high (body text 12:1, accent 8:1 on the page background).
 - **v4.9 (2026-10-24):** New wide desktop background made from the square portrait photo, so the desktop, tablet and phone images all match. The share image was resized from 3840 x 2160 (985 KB) to the standard 1200 x 630 (88 KB). Images optimized for faster loading: the desktop photo went from 479 KB to 89 KB (1920 px) or 133 KB (2560 px) and the browser picks by screen; phones get 53 KB (720 px) or 94 KB (1080 px) instead of 122 KB; the tablet photo went from 110 KB to 83 KB; the portrait from 193 KB to 74 KB.
 - **v4.8 (2026-10-24):** Phone (4:5) and tablet (square) backgrounds rebuilt from the square portrait photo, which has more detail than the desktop photo. The fade at the top of the photo was shortened from 10% to 6% so his hair stays solid.
 - **v4.7 (2026-10-24):** Fixed the name and tagline overlapping his head on real phones. On portrait phones and tablets the photo now sits below the text instead of behind it, so the layout no longer depends on screen height, browser bars or the exact crop. The phone and tablet images are now plain 4:5 and square crops.

@@ -2,27 +2,37 @@
    Fonts are loaded from index.html (not @import), so they don't block rendering in a chain. */
 
 :root {
-  /* Palette sampled from the hero photo: navy jacket, denim wall, steel-grey light */
-  --accent: #8fb2d9;        /* text accents, icons, buttons (8.9:1 on the dark background) */
-  --accent-soft: #a9c4e2;   /* section titles */
-  --accent-hover: #b4cde8;  /* hover state for accents and buttons */
-  --accent-line: #5f87b3;   /* rules, underlines, borders */
-  --ice: #e6edf5;           /* hero name: light enough to read on the denim-blue photo */
-  --bg-dark: #070d16;       /* page background: the jacket navy, darkened */
-  --bg-bar: #04080f;        /* top bar and footer */
+  /* Navy palette. Change these and the whole site follows. */
+  --bg-dark: #0a1a35;       /* page background: navy */
+  --bg-bar: #061429;        /* top bar and footer: deeper navy */
+  --alt: #0e2244;           /* alternate sections: a step lighter */
+  --tile: #112b52;          /* placeholder tiles and release covers */
+  --tile-top: #16335f;      /* the lighter end of the cover gradient */
+  --field: #081730;         /* form fields */
+  --panel: rgba(6, 20, 41, 0.82);
+
+  --accent: #86b4f0;        /* text accents, icons, buttons (8:1 on the page background) */
+  --accent-soft: #a5c6f5;   /* section titles */
+  --accent-hover: #bcd6f8;  /* hover state for accents and buttons */
+  --accent-line: #4f86cf;   /* rules, underlines, borders */
+  --ice: #e9f1fc;           /* hero name: light enough to read on the denim-blue photo */
+  --text: #cdd9ec;          /* body copy */
+  --muted: #9db0cc;
+  --line: rgba(134, 180, 240, 0.22);
+  --error: #e8907f;
+
+  /* The same colours as bare numbers, for translucent overlays: rgba(var(--navy-rgb), 0.5) */
+  --navy-rgb: 10, 26, 53;        /* = --bg-dark */
+  --panel-rgb: 6, 20, 41;        /* = --bg-bar */
+  --shadow-rgb: 3, 10, 28;       /* text shadows */
+  --accent-rgb: 134, 180, 240;   /* = --accent */
+  --accent-line-rgb: 79, 134, 207; /* = --accent-line */
 
   --font-display: "Josefin Sans", "Century Gothic", Futura, "Avenir Next", "Trebuchet MS", sans-serif;
   --font-serif: "Playfair Display", Georgia, serif;
   --font-ui: Arial, Helvetica, sans-serif;
 
   --gutter: clamp(1rem, 5vw, 4rem);
-
-  --alt: #0b1420;
-  --panel: rgba(8, 15, 26, 0.8);
-  --line: rgba(143, 178, 217, 0.2);
-  --text: #cfd8e3;          /* body copy */
-  --muted: #9aa8ba;
-  --error: #e8907f;
 }
 
 /* ==========================================================================
@@ -290,9 +300,9 @@ main {
   z-index: -1;
   pointer-events: none;
   background:
-    linear-gradient(to top, rgba(7, 13, 22, 0.85) 0%, rgba(7, 13, 22, 0) 38%),
-    linear-gradient(to bottom, rgba(7, 13, 22, 0.35) 0%, rgba(7, 13, 22, 0) 30%),
-    radial-gradient(ellipse 48% 26% at 72% 20%, rgba(7, 13, 22, 0.5), rgba(7, 13, 22, 0) 100%);
+    linear-gradient(to top, rgba(var(--navy-rgb), 0.85) 0%, rgba(var(--navy-rgb), 0) 38%),
+    linear-gradient(to bottom, rgba(var(--navy-rgb), 0.35) 0%, rgba(var(--navy-rgb), 0) 30%),
+    radial-gradient(ellipse 48% 26% at 72% 20%, rgba(var(--navy-rgb), 0.5), rgba(var(--navy-rgb), 0) 100%);
 }
 
 /* On desktop and landscape he sits on the left, so the text goes in the right-hand area:
@@ -319,7 +329,7 @@ main {
   width: max-content; /* so script.js can read the text's true width */
   white-space: nowrap;
   text-transform: uppercase;
-  text-shadow: 0 2px 22px rgba(4, 10, 20, 0.55);
+  text-shadow: 0 2px 22px rgba(var(--shadow-rgb), 0.55);
 }
 
 .hero-copy p {
@@ -331,7 +341,7 @@ main {
   font-weight: 600;
   letter-spacing: 0.03em;
   line-height: 1.4;
-  text-shadow: 0 1px 14px rgba(4, 10, 20, 0.75);
+  text-shadow: 0 1px 14px rgba(var(--shadow-rgb), 0.75);
 }
 
 /* ==========================================================================
@@ -341,7 +351,7 @@ main {
   width: min(100%, 26rem);
   margin-left: auto;
   padding: 1.5rem 1.75rem;
-  background-color: rgba(8, 15, 26, 0.78);
+  background-color: rgba(var(--panel-rgb), 0.78);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -394,8 +404,8 @@ main {
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .show-panel:hover {
-    background-color: rgba(8, 15, 26, 0.9);
-    border-top-color: rgba(143, 178, 217, 0.55);
+    background-color: rgba(var(--panel-rgb), 0.9);
+    border-top-color: rgba(var(--accent-rgb), 0.55);
     transform: translateY(-3px);
   }
 }
@@ -533,7 +543,7 @@ main {
 
   /* Only the bottom needs darkening now (behind the shows panel) */
   .hero::after {
-    background: linear-gradient(to top, rgba(7, 13, 22, 0.85) 0%, rgba(7, 13, 22, 0) 38%);
+    background: linear-gradient(to top, rgba(var(--navy-rgb), 0.85) 0%, rgba(var(--navy-rgb), 0) 38%);
   }
 }
 
@@ -577,8 +587,8 @@ main {
   pointer-events: none;
   opacity: 0.55;
   background:
-    linear-gradient(to top right, transparent calc(50% - 0.5px), rgba(143, 178, 217, 0.5) 50%, transparent calc(50% + 0.5px)),
-    linear-gradient(to top right, transparent calc(50% + 14px), rgba(143, 178, 217, 0.25) calc(50% + 15px), transparent calc(50% + 16px));
+    linear-gradient(to top right, transparent calc(50% - 0.5px), rgba(var(--accent-rgb), 0.5) 50%, transparent calc(50% + 0.5px)),
+    linear-gradient(to top right, transparent calc(50% + 14px), rgba(var(--accent-rgb), 0.25) calc(50% + 15px), transparent calc(50% + 16px));
   -webkit-mask-image: linear-gradient(to left, #000, transparent);
   mask-image: linear-gradient(to left, #000, transparent);
 }
@@ -652,8 +662,8 @@ main {
   place-items: center;
   aspect-ratio: 1;
   background:
-    radial-gradient(circle at 20% 15%, rgba(95, 135, 179, 0.35), transparent 55%),
-    linear-gradient(160deg, #10203a, #070d16);
+    radial-gradient(circle at 20% 15%, rgba(var(--accent-line-rgb), 0.35), transparent 55%),
+    linear-gradient(160deg, var(--tile-top), var(--bg-dark));
   border-bottom: 1px solid var(--line);
 }
 
@@ -736,7 +746,7 @@ main {
 .shot {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #0f1c30, #070d16);
+  background: linear-gradient(135deg, var(--tile), var(--bg-dark));
   border: 1px solid var(--line);
 }
 
@@ -899,7 +909,7 @@ main {
   padding: 0.8rem 1rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 0;
-  background-color: #08111d;
+  background-color: var(--field);
   color: #fff;
   font: inherit;
   font-size: 1rem; /* 16px stops iPhones zooming in on focus */
@@ -976,7 +986,7 @@ main {
 }
 
 .btn-secondary:hover {
-  background: rgba(143, 178, 217, 0.14);
+  background: rgba(var(--accent-rgb), 0.14);
 }
 
 .btn:disabled {
@@ -1032,7 +1042,7 @@ main {
 }
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .card:hover { border-top-color: rgba(143, 178, 217, 0.55); transform: translateY(-3px); }
+  .card:hover { border-top-color: rgba(var(--accent-rgb), 0.55); transform: translateY(-3px); }
   .shot--photo:hover img { transform: scale(1.04); }
 }
 
