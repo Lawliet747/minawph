@@ -3,7 +3,7 @@
 A one-page musician profile site built with plain HTML, CSS and JavaScript. There is no framework and no build step.
 
 - **Live site:** https://minawph.pages.dev/
-- **Version:** v5.3 (26 October 2026)
+- **Version:** v5.4 (26 October 2026)
 
 ## What's on the page
 
@@ -73,6 +73,14 @@ The Music section has the latest release (Obb) as a wide banner, then a carousel
 
 The song years and the two durations came from Apple Music, Spotify and Shazam; the order inside 2021 is partly estimated.
 
+## Footer
+
+The footer has four parts: the logo with the tagline, the place and the social icons; an Explore column that links to each section; a Listen column (Spotify, Apple Music, YouTube); and a Bookings & contact column with the email address. A bottom bar holds the copyright line (the year updates itself) and Back to top. On a phone the columns stack in two, and the contact column spans the full width.
+
+- **Where the details live:** the email address and the Messenger link appear in three places, so change all of them together: the Contact section, the form's fallback address (`data-fallback-email` on the form) and this footer. The social links appear in the top bar and in the footer.
+- **Apple Music:** this link (`https://music.apple.com/artist/minaw/1549709229`) was found through a search, so click it once on the live site to confirm it opens the right artist page.
+- **Adding a link:** copy one `<li>...</li>` inside a `.footer-links` list. For a new social icon, copy one of the `footer-socials` items and change the `fa-brands fa-...` icon name (the icon names are on the Font Awesome site).
+
 ## Still to fill in
 
 Each item is marked with a `TODO` comment in `index.html`.
@@ -110,6 +118,7 @@ The site is hosted on Cloudflare Pages. Pushing to the `main` branch on GitHub r
 
 ## Release history
 
+- **v5.4 (2026-10-26):** The footer is now a full footer instead of a single copyright line: logo and tagline, social icons, Explore, Listen (including Apple Music) and Bookings & contact columns, and a bottom bar with the copyright and Back to top. It collapses cleanly on tablets and phones.
 - **v5.3 (2026-10-26):** The Music section is now the latest release as a banner plus a swipeable carousel of the other 11 singles (arrows, a position counter, one card at a time on phones). Every button links to the song's exact YouTube video, and each cover uses that video's YouTube thumbnail, with the placeholder as a fallback. "Mukha Ng Diyos" was removed, which makes 12 songs, matching the Bio. The security policy now allows images from YouTube's image server.
 - **v5.2 (2026-10-25):** Music section filled in with 13 release cards built from Minaw's catalogue (Obb, Sasabihin, Palayo, Konteksto, Papansin, Hiya, Distansya, Luna, Tabi, Koneksyon, Mukha Ng Diyos, Hinga, Pagitan). The latest release is a banner with a link to the live version of Obb; each card links to YouTube. The section intro now reads "Singles, newest first."
 - **v5.1 (2026-10-25):** The navy theme now extends to the photos. The desktop, tablet and phone backgrounds, the portrait and the share image are colour-graded: a deeper navy backdrop with sky-blue accents in the light, while skin tones, hair, clothing and eye colour are unchanged. File sizes are about the same as v5.
