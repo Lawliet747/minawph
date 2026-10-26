@@ -402,6 +402,12 @@ main {
   }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .release .cover .thumb { transition: transform 400ms ease; }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .release .cover:hover .thumb { transform: scale(1.04); }
+}
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .show-panel:hover {
     background-color: rgba(var(--panel-rgb), 0.9);
@@ -650,27 +656,79 @@ main {
 }
 
 /* ---- Music ---- */
-.release-grid {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: 1.5rem;
-}
-
+/* Covers: the placeholder (sun mark and year) sits underneath; the YouTube thumbnail sits on top and
+   covers it once it has loaded. If the thumbnail cannot load, script.js removes it and the placeholder shows. */
 .release .cover {
+  position: relative;
   display: grid;
   place-items: center;
-  aspect-ratio: 1;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
   background:
     radial-gradient(circle at 20% 15%, rgba(var(--accent-line-rgb), 0.35), transparent 55%),
     linear-gradient(160deg, var(--tile-top), var(--bg-dark));
   border-bottom: 1px solid var(--line);
 }
 
-.release .cover img {
-  width: 34%;
+.release .cover .mark {
+  width: 22%;
   height: auto;
   opacity: 0.6;
+}
+
+.cover-year {
+  position: absolute;
+  left: 1rem;
+  bottom: 0.85rem;
+  color: var(--accent-soft);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  opacity: 0.8;
+}
+
+.release .cover .thumb {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* fills the 16:9 frame and trims the black bars YouTube adds to some thumbnails */
+}
+
+/* The latest release: a wide banner */
+.release--latest {
+  display: grid;
+  grid-template-columns: minmax(0, 28rem) minmax(0, 1fr);
+  align-items: center;
+}
+
+.release--latest .cover {
+  border-right: 1px solid var(--line);
+  border-bottom: 0;
+}
+
+.release--latest .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem clamp(1.5rem, 4vw, 3rem);
+}
+
+.release--latest h3 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.card-actions .btn {
+  margin-top: 0; /* the gap above does the spacing */
 }
 
 .card-body {
@@ -697,6 +755,108 @@ main {
   color: var(--muted);
   font-size: 0.8125rem;
   letter-spacing: 0.04em;
+}
+
+/* ---- Music carousel ---- */
+.carousel {
+  --gap: 1.5rem;
+  --per-view: 3; /* cards in view at once */
+  margin-top: 2.5rem;
+}
+
+.carousel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.carousel-title {
+  color: var(--accent-soft);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.carousel-controls[hidden] {
+  display: none;
+}
+
+.carousel-count {
+  margin-right: 0.5rem;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+}
+
+.carousel-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--accent-line);
+  color: var(--accent);
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease, opacity 200ms ease;
+}
+
+.carousel-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.carousel-btn:hover:not(:disabled) {
+  background: rgba(var(--accent-rgb), 0.14);
+  color: var(--accent-hover);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.carousel-btn:focus-visible,
+.carousel-track:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.carousel-track {
+  list-style: none;
+  display: flex;
+  gap: var(--gap);
+  padding: 0.4rem 0 1rem; /* room for the hover lift and the scrollbar */
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-line) transparent;
+}
+
+.carousel-track > li {
+  flex: 0 0 calc((100% - (var(--per-view) - 1) * var(--gap)) / var(--per-view));
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.more-link {
+  margin-top: 1.25rem;
 }
 
 /* ---- News ---- */
@@ -1061,19 +1221,51 @@ main {
 @media (max-width: 640px) {
   .news-item { grid-template-columns: 1fr; gap: 0.35rem; }
 
-  /* Releases become compact rows on phones instead of three full-width squares */
-  .release {
-    display: grid;
-    grid-template-columns: 7.5rem minmax(0, 1fr);
-    align-items: center;
+  /* Releases: the carousel shows one card with the next one peeking in */
+  .carousel {
+    --gap: 1rem;
+    --per-view: 1.15;
   }
 
-  .release .cover {
-    border-right: 1px solid var(--line);
-    border-bottom: 0;
+  .carousel-count {
+    display: none;
   }
 
-  .release .card-body {
-    padding: 1rem 1.25rem;
+  .card-actions .btn {
+    padding-inline: 1rem;
+    letter-spacing: 0.1em;
+  }
+}
+
+/* Releases: on tablets and phones the banner stacks (image on top) */
+@media (max-width: 1000px) {
+  .release--latest {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .release--latest .cover {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .release--latest .card-body {
+    align-items: flex-start;
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+
+  .release--latest h3 {
+    font-size: 1.5rem;
+  }
+
+  .card-actions {
+    margin-top: 1.25rem;
+  }
+}
+
+/* Releases: the carousel shows two cards on tablets */
+@media (min-width: 641px) and (max-width: 1000px) {
+  .carousel {
+    --per-view: 2;
   }
 }

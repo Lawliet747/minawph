@@ -14,7 +14,7 @@
     If you add something new (a Spotify/YouTube embed, analytics, another font host),
     add its address here, or the browser will block it.
   -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self'; connect-src https://formspree.io; form-action https://formspree.io; base-uri 'self'; object-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' https://i.ytimg.com; connect-src https://formspree.io; form-action https://formspree.io; base-uri 'self'; object-src 'none'">
 
   <!-- TODO: title/description are neutral until the real bio and tagline are ready -->
   <title>Minaw | Official Website</title>
@@ -133,46 +133,185 @@
       <div class="wrap">
         <div class="section-head">
           <h2 class="section-title" id="music-title">Music</h2>
-          <p class="section-lead">New music is on the way. Releases will appear here as they come out.</p>
+          <p class="section-lead">Singles, newest first.</p>
           <div class="accent-rule" aria-hidden="true"></div>
         </div>
 
-        <ul class="release-grid">
-          <li class="release card">
-            <div class="cover" aria-hidden="true">
-              <img src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
+        <article class="release release--latest card">
+          <a class="cover" href="https://youtu.be/FI7mQ2Wfxd8" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+            <img class="mark" src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
+            <span class="cover-year">2025</span>
+            <img class="thumb" src="https://i.ytimg.com/vi/FI7mQ2Wfxd8/maxresdefault.jpg" data-fallback="https://i.ytimg.com/vi/FI7mQ2Wfxd8/hqdefault.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+          </a>
+          <div class="card-body">
+            <p class="tag">Latest release</p>
+            <h3>Obb</h3>
+            <p class="meta">Single · 2025 · 3:33</p>
+            <div class="card-actions">
+              <a class="btn btn-primary" href="https://youtu.be/FI7mQ2Wfxd8" target="_blank" rel="noopener noreferrer" aria-label="Listen to Obb on YouTube">Listen on YouTube</a>
+              <a class="btn btn-secondary" href="https://www.youtube.com/watch?v=Ig61XeULQ_M" target="_blank" rel="noopener noreferrer" aria-label="Watch Obb live at SM North Skydome on YouTube">Watch live at SM North Skydome</a>
             </div>
-            <div class="card-body">
-              <p class="tag">Latest release</p>
-              <h3>Release title</h3>
-              <p class="meta">Single · 2026</p>
-              <p>A short note about the song: what it is about, who it is for, or how it was made.</p>
-              <a class="btn btn-primary" href="#">Listen now</a>
+          </div>
+        </article>
+
+        <div class="carousel" role="region" aria-roledescription="carousel" aria-labelledby="more-singles">
+          <div class="carousel-head">
+            <h3 class="carousel-title" id="more-singles">More singles</h3>
+            <!-- The arrows stay hidden until script.js runs; without it the row still swipes and scrolls. -->
+            <div class="carousel-controls" hidden>
+              <span class="carousel-count" aria-hidden="true"></span>
+              <button class="carousel-btn" type="button" data-dir="-1" aria-label="Previous singles" disabled><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg></button>
+              <button class="carousel-btn" type="button" data-dir="1" aria-label="Next singles"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
             </div>
-          </li>
-          <li class="release card">
-            <div class="cover" aria-hidden="true">
-              <img src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
-            </div>
-            <div class="card-body">
-              <p class="tag">Coming soon</p>
-              <h3>Release title</h3>
-              <p class="meta">Year</p>
-              <p>A short description of the next release.</p>
-            </div>
-          </li>
-          <li class="release card">
-            <div class="cover" aria-hidden="true">
-              <img src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
-            </div>
-            <div class="card-body">
-              <p class="tag">Coming soon</p>
-              <h3>Release title</h3>
-              <p class="meta">Year</p>
-              <p>A short description of the next release.</p>
-            </div>
-          </li>
-        </ul>
+          </div>
+          <ul class="carousel-track" tabindex="0" aria-label="More singles, scroll sideways">
+            <li class="release card">
+              <a class="cover" href="https://youtu.be/4dWkmsXWghE" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+                <img class="mark" src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
+                <span class="cover-year">2023</span>
+                <img class="thumb" src="https://i.ytimg.com/vi/4dWkmsXWghE/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+              </a>
+              <div class="card-body">
+                <p class="tag">Single</p>
+                <h3>Sasabihin</h3>
+                <p class="meta">2023</p>
+                <a class="btn btn-secondary" href="https://youtu.be/4dWkmsXWghE" target="_blank" rel="noopener noreferrer" aria-label="Listen to Sasabihin on YouTube">Listen on YouTube</a>
+              </div>
+            </li>
+            <li class="release card">
+              <a class="cover" href="https://youtu.be/e3ZfqDnLD-0" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+                <img class="mark" src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
+                <span class="cover-year">2023</span>
+                <img class="thumb" src="https://i.ytimg.com/vi/e3ZfqDnLD-0/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+              </a>
+              <div class="card-body">
+                <p class="tag">Single</p>
+                <h3>Palayo</h3>
+                <p class="meta">2023</p>
+                <a class="btn btn-secondary" href="https://youtu.be/e3ZfqDnLD-0" target="_blank" rel="noopener noreferrer" aria-label="Listen to Palayo on YouTube">Listen on YouTube</a>
+              </div>
+            </li>
+            <li class="release card">
+              <a class="cover" href="https://youtu.be/sq7bnZUv-PE" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+                <img class="mark" src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
+                <span class="cover-year">2022</span>
+                <img class="thumb" src="https://i.ytimg.com/vi/sq7bnZUv-PE/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+              </a>
+              <div class="card-body">
+                <p class="tag">Single</p>
+                <h3>Konteksto</h3>
+                <p class="meta">2022</p>
+                <a class="btn btn-secondary" href="https://youtu.be/sq7bnZUv-PE" target="_blank" rel="noopener noreferrer" aria-label="Listen to Konteksto on YouTube">Listen on YouTube</a>
+              </div>
+            </li>
+            <li class="release card">
+              <a class="cover" href="https://youtu.be/7VJpIg0YXPk" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+                <img class="mark" src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
+                <span class="cover-year">2022</span>
+                <img class="thumb" src="https://i.ytimg.com/vi/7VJpIg0YXPk/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+              </a>
+              <div class="card-body">
+                <p class="tag">Single</p>
+                <h3>Papansin</h3>
+                <p class="meta">2022</p>
+                <a class="btn btn-secondary" href="https://youtu.be/7VJpIg0YXPk" target="_blank" rel="noopener noreferrer" aria-label="Listen to Papansin on YouTube">Listen on YouTube</a>
+              </div>
+            </li>
+            <li class="release card">
+              <a class="cover" href="https://youtu.be/yUDQDiF0j-s" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+                <img class="mark" src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
+                <span class="cover-year">2021</span>
+                <img class="thumb" src="https://i.ytimg.com/vi/yUDQDiF0j-s/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+              </a>
+              <div class="card-body">
+                <p class="tag">Single</p>
+                <h3>Hiya</h3>
+                <p class="meta">2021 · 4:59</p>
+                <a class="btn btn-secondary" href="https://youtu.be/yUDQDiF0j-s" target="_blank" rel="noopener noreferrer" aria-label="Listen to Hiya on YouTube">Listen on YouTube</a>
+              </div>
+            </li>
+            <li class="release card">
+              <a class="cover" href="https://youtu.be/55vv2bb3ERk" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+                <img class="mark" src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
+                <span class="cover-year">2021</span>
+                <img class="thumb" src="https://i.ytimg.com/vi/55vv2bb3ERk/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+              </a>
+              <div class="card-body">
+                <p class="tag">Single</p>
+                <h3>Distansya</h3>
+                <p class="meta">2021</p>
+                <a class="btn btn-secondary" href="https://youtu.be/55vv2bb3ERk" target="_blank" rel="noopener noreferrer" aria-label="Listen to Distansya on YouTube">Listen on YouTube</a>
+              </div>
+            </li>
+            <li class="release card">
+              <a class="cover" href="https://youtu.be/ypEIb9_2zBI" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+                <img class="mark" src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
+                <span class="cover-year">2021</span>
+                <img class="thumb" src="https://i.ytimg.com/vi/ypEIb9_2zBI/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+              </a>
+              <div class="card-body">
+                <p class="tag">Single</p>
+                <h3>Luna</h3>
+                <p class="meta">2021</p>
+                <a class="btn btn-secondary" href="https://youtu.be/ypEIb9_2zBI" target="_blank" rel="noopener noreferrer" aria-label="Listen to Luna on YouTube">Listen on YouTube</a>
+              </div>
+            </li>
+            <li class="release card">
+              <a class="cover" href="https://youtu.be/ddsAkwLy19E" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+                <img class="mark" src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
+                <span class="cover-year">2021</span>
+                <img class="thumb" src="https://i.ytimg.com/vi/ddsAkwLy19E/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+              </a>
+              <div class="card-body">
+                <p class="tag">Single</p>
+                <h3>Tabi</h3>
+                <p class="meta">2021</p>
+                <a class="btn btn-secondary" href="https://youtu.be/ddsAkwLy19E" target="_blank" rel="noopener noreferrer" aria-label="Listen to Tabi on YouTube">Listen on YouTube</a>
+              </div>
+            </li>
+            <li class="release card">
+              <a class="cover" href="https://youtu.be/Wn2z0Bh6K40" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+                <img class="mark" src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
+                <span class="cover-year">2021</span>
+                <img class="thumb" src="https://i.ytimg.com/vi/Wn2z0Bh6K40/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+              </a>
+              <div class="card-body">
+                <p class="tag">Single</p>
+                <h3>Koneksyon</h3>
+                <p class="meta">2021</p>
+                <a class="btn btn-secondary" href="https://youtu.be/Wn2z0Bh6K40" target="_blank" rel="noopener noreferrer" aria-label="Listen to Koneksyon on YouTube">Listen on YouTube</a>
+              </div>
+            </li>
+            <li class="release card">
+              <a class="cover" href="https://youtu.be/J2OBupkOoyI" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+                <img class="mark" src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
+                <span class="cover-year">2021</span>
+                <img class="thumb" src="https://i.ytimg.com/vi/J2OBupkOoyI/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+              </a>
+              <div class="card-body">
+                <p class="tag">Single</p>
+                <h3>Hinga</h3>
+                <p class="meta">2021</p>
+                <a class="btn btn-secondary" href="https://youtu.be/J2OBupkOoyI" target="_blank" rel="noopener noreferrer" aria-label="Listen to Hinga on YouTube">Listen on YouTube</a>
+              </div>
+            </li>
+            <li class="release card">
+              <a class="cover" href="https://youtu.be/sdcEinauGPc" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+                <img class="mark" src="img/favicon.png" alt="" width="100" height="100" loading="lazy">
+                <span class="cover-year">2021</span>
+                <img class="thumb" src="https://i.ytimg.com/vi/sdcEinauGPc/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+              </a>
+              <div class="card-body">
+                <p class="tag">Single</p>
+                <h3>Pagitan</h3>
+                <p class="meta">2021</p>
+                <a class="btn btn-secondary" href="https://youtu.be/sdcEinauGPc" target="_blank" rel="noopener noreferrer" aria-label="Listen to Pagitan on YouTube">Listen on YouTube</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <p class="more-link"><a class="btn btn-secondary" href="https://www.youtube.com/channel/UCIDN7DSD_X1VSak3-DFh6SA" target="_blank" rel="noopener noreferrer">See all songs on YouTube</a></p>
       </div>
     </section>
 
