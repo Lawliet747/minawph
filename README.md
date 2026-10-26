@@ -3,7 +3,7 @@
 A one-page musician profile site built with plain HTML, CSS and JavaScript. There is no framework and no build step.
 
 - **Live site:** https://minawph.pages.dev/
-- **Version:** v5.1 (25 October 2026)
+- **Version:** v5.3 (26 October 2026)
 
 ## What's on the page
 
@@ -62,12 +62,22 @@ A navy theme that sits alongside the blues in the hero photo. All colours live a
 
 If you change `--accent` or `--bg-dark`, also regrade the photos (see Colour grade), refresh the logo files (`favicon*.png`, `favicon.svg`, `logo-minaw.*`) and `apple-touch-icon.png`, which carry those two colours, and the `theme-color` in `index.html`.
 
+## Music cards
+
+The Music section has the latest release (Obb) as a wide banner, then a carousel of the other 11 singles, newest first. On a wide screen three cards show at once, on a tablet two, and on a phone one with the next card peeking in. The arrows above the row move one screen of cards at a time and the counter shows where you are; on a phone you can just swipe, and with the row focused the left and right arrow keys work too. Without JavaScript the row still scrolls, and the arrows stay hidden.
+
+- **Links:** every button opens that song's own YouTube video (the `youtu.be/...` link, without the tracking code YouTube adds when you share). The banner's second button opens the live performance at SM North Skydome.
+- **Thumbnails:** each cover shows the video's YouTube thumbnail, loaded straight from YouTube's image server (`https://i.ytimg.com/vi/VIDEO-ID/hqdefault.jpg`; the banner asks for the larger `maxresdefault.jpg` first). The site's security policy in `index.html` allows that one address (`img-src`). If a thumbnail cannot load, `script.js` removes it and the navy placeholder with the sun mark and the year shows instead. The thumbnails are cropped to a 16:9 frame, which trims the black bars YouTube adds to some of them. To use your own cover art instead, replace the `<img class="thumb">` with your image (keep it 16:9, about 800 px wide, under 80 KB); once no thumbnails come from YouTube you can remove `https://i.ytimg.com` from `img-src`.
+- **Adding a song:** copy one `<li class="release card">...</li>` block inside the carousel, change the title, year and video ID (the ID is the part after `youtu.be/`; it appears in the link and in both thumbnail addresses), and keep the list newest first. When a new single comes out, make it the banner and move the old banner into the carousel as a regular card.
+- **"See all songs on YouTube"** under the carousel links to the channel address you gave.
+
+The song years and the two durations came from Apple Music, Spotify and Shazam; the order inside 2021 is partly estimated.
+
 ## Still to fill in
 
 Each item is marked with a `TODO` comment in `index.html`.
 
 - [ ] Upcoming shows text
-- [ ] Music: release titles, cover art, and the "Listen now" links
 - [ ] News: replace the two "Coming soon" items as stories come in
 - [ ] Gallery: replace the dashed placeholders with real photos (about 800 px wide, under 150 KB, WebP)
 - [ ] Contact form: replace `YOUR_FORM_ID` (see below)
@@ -100,6 +110,8 @@ The site is hosted on Cloudflare Pages. Pushing to the `main` branch on GitHub r
 
 ## Release history
 
+- **v5.3 (2026-10-26):** The Music section is now the latest release as a banner plus a swipeable carousel of the other 11 singles (arrows, a position counter, one card at a time on phones). Every button links to the song's exact YouTube video, and each cover uses that video's YouTube thumbnail, with the placeholder as a fallback. "Mukha Ng Diyos" was removed, which makes 12 songs, matching the Bio. The security policy now allows images from YouTube's image server.
+- **v5.2 (2026-10-25):** Music section filled in with 13 release cards built from Minaw's catalogue (Obb, Sasabihin, Palayo, Konteksto, Papansin, Hiya, Distansya, Luna, Tabi, Koneksyon, Mukha Ng Diyos, Hinga, Pagitan). The latest release is a banner with a link to the live version of Obb; each card links to YouTube. The section intro now reads "Singles, newest first."
 - **v5.1 (2026-10-25):** The navy theme now extends to the photos. The desktop, tablet and phone backgrounds, the portrait and the share image are colour-graded: a deeper navy backdrop with sky-blue accents in the light, while skin tones, hair, clothing and eye colour are unchanged. File sizes are about the same as v5.
 - **v5 (2026-10-25):** The theme moved from near-black to a richer navy blue (page, top bar, footer, sections, overlays and form fields), with a slightly brighter sky-blue accent. All colours are now variables in one place, including the translucent overlays. The logo, favicons and Apple icon were recoloured to match. Contrast stays high (body text 12:1, accent 8:1 on the page background).
 - **v4.9 (2026-10-24):** New wide desktop background made from the square portrait photo, so the desktop, tablet and phone images all match. The share image was resized from 3840 x 2160 (985 KB) to the standard 1200 x 630 (88 KB). Images optimized for faster loading: the desktop photo went from 479 KB to 89 KB (1920 px) or 133 KB (2560 px) and the browser picks by screen; phones get 53 KB (720 px) or 94 KB (1080 px) instead of 122 KB; the tablet photo went from 110 KB to 83 KB; the portrait from 193 KB to 74 KB.

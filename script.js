@@ -1,5 +1,5 @@
 /* Minaw — script.js
-   Six jobs: fill in the footer year, keep the top bar height up to date, fit the hero name on one line, run the nav arrows, highlight the nav link for the section in view,
+   Eight jobs: fill in the footer year, keep the top bar height up to date, fit the hero name on one line, run the music carousel, handle the song thumbnails, run the nav arrows, highlight the nav link for the section in view,
    and check and send the contact form. Everything sits inside one function so nothing
    leaks into the page. */
 (() => {
@@ -62,6 +62,84 @@
     window.addEventListener("resize", () => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(fit);
+    });
+  }
+
+  /* ---------- Music carousel ---------- */
+  // The cards sit in a row that scrolls sideways and snaps card by card. The arrows scroll by the cards
+  // that are in view; swiping, a trackpad, and the arrow keys (with the row focused) work without them.
+  function initCarousel() {
+    const root = document.querySelector(".carousel");
+    if (!root) return;
+    const track = root.querySelector(".carousel-track");
+    const controls = root.querySelector(".carousel-controls");
+    const prev = root.querySelector('[data-dir="-1"]');
+    const next = root.querySelector('[data-dir="1"]');
+    const count = root.querySelector(".carousel-count");
+    const cards = Array.from(track.children);
+    if (cards.length < 2) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    // Distance from one card to the next (card width plus the gap)
+    function step() {
+      return cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left;
+    }
+    function visibleCount() {
+      return Math.max(1, Math.round(track.clientWidth / step()));
+    }
+    function scrollByCards(n) {
+      track.scrollBy({ left: n * step(), behavior: reduceMotion.matches ? "auto" : "smooth" });
+    }
+
+    function update() {
+      const max = track.scrollWidth - track.clientWidth;
+      const atStart = track.scrollLeft <= 2;
+      const atEnd = track.scrollLeft >= max - 2;
+      controls.hidden = max <= 2; // everything fits: no arrows needed
+      prev.disabled = atStart;
+      next.disabled = atEnd;
+      const visible = visibleCount();
+      const first = atEnd ? Math.max(1, cards.length - visible + 1) : Math.round(track.scrollLeft / step()) + 1;
+      const last = Math.min(cards.length, first + visible - 1);
+      count.textContent = first + "\u2013" + last + " of " + cards.length;
+    }
+
+    prev.addEventListener("click", () => scrollByCards(-visibleCount()));
+    next.addEventListener("click", () => scrollByCards(visibleCount()));
+    track.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") { event.preventDefault(); scrollByCards(1); }
+      if (event.key === "ArrowLeft") { event.preventDefault(); scrollByCards(-1); }
+    });
+
+    let frame = 0;
+    const queueUpdate = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(update);
+    };
+    track.addEventListener("scroll", queueUpdate, { passive: true });
+    window.addEventListener("resize", queueUpdate);
+    update();
+  }
+
+  /* ---------- Song thumbnails from YouTube ---------- */
+  // Each cover shows a YouTube thumbnail over the placeholder. If one cannot load, it is removed so the
+  // placeholder shows instead. The banner asks for the large size first and falls back to the standard one
+  // (YouTube answers a missing image with a tiny grey picture, so a width of 120 or less counts as missing).
+  function initThumbs() {
+    document.querySelectorAll(".cover .thumb").forEach((img) => {
+      function fail() {
+        const fallback = img.dataset.fallback;
+        if (fallback) {
+          delete img.dataset.fallback;
+          img.src = fallback;
+        } else {
+          img.remove();
+        }
+      }
+      img.addEventListener("error", fail);
+      img.addEventListener("load", () => {
+        if (img.naturalWidth <= 120) fail();
+      });
     });
   }
 
@@ -242,6 +320,8 @@
 
   trackTopbarHeight();
   initHeroName();
+  initCarousel();
+  initThumbs();
   initNavScroller();
   initNavHighlight();
   initContactForm();
