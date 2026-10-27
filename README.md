@@ -3,7 +3,7 @@
 A one-page musician profile site built with plain HTML, CSS and JavaScript. There is no framework and no build step.
 
 - **Live site:** https://minawph.pages.dev/
-- **Version:** v5.5 (27 October 2026)
+- **Version:** v5.6 (27 October 2026)
 
 ## What's on the page
 
@@ -108,7 +108,7 @@ Until step 2 is done, the Send button opens the visitor's email app instead.
 - **Image sizes:** Each hero photo comes in more than one size, and the browser downloads only the one the screen needs (`srcset` and `sizes` in `index.html`): a 1920 px laptop gets an 89 KB file instead of a 479 KB one. All photos are WebP at quality 76 to 80, which looks the same as the originals on screen. When you replace a photo, make each size from your largest original and keep the file names. A good rule is to keep each hero image under about 140 KB.
 - **Colour grade:** All the photos (the three hero backgrounds, the Bio and Gallery portrait and the share image) are colour-graded to the navy theme. Only the blue backdrop is regraded: deeper navy in the shadows, the site's sky-blue accent in the light beams and stripe. Skin, hair, the jacket and the microphone are left untouched, and the teal reflection in his glasses is kept. When you swap a photo, ask for the same grade so it matches the page, and grade the original before making the smaller sizes.
 - **Hero name:** It stays on one line (`white-space: nowrap`). `script.js` (`initHeroName`) measures the name's real width in whichever font is showing and sets the font size so it fills the available room (`--name-room` in `styles.css`), up to a ceiling set in CSS (`--name-max`: about 165 px on a wide desktop, 144 px on a tablet). The ceiling grows with the screen width so the end of the name stays clear of the light stripe in the photo. It re-fits when the web font finishes loading and when the window is resized. To make the name bigger or smaller, change `--name-max` (and `--name-room` for the space it may use).
-- **Nav:** It stays pinned on tablets and desktops. On phones it is one row you can swipe, with arrow buttons at each end.
+- **Nav:** It stays pinned on tablets and desktops. On phones it is one row you can swipe, with arrow buttons at each end and a soft fade on the side where more links are hidden (`script.js` sets `data-fade` on the row; the fade size is `--nav-fade` in `styles.css`).
 - **Fonts:** Josefin Sans (headings and titles) and Playfair Display (the italic tagline and lead lines) come from Google Fonts. The social icons use Font Awesome. To try another heading font, change the family name in the Google Fonts `<link>` in `index.html` and `--font-display` in `styles.css`; the hero name resizes itself to fit. Good alternatives for the same feel: Jost (closer to Futura), Righteous (rounded 70s style), Syncopate (very wide and retro-futuristic; the name will be smaller).
 - **Security:** `index.html` has a Content Security Policy that lists what the page may load. If you add something new (a Spotify or YouTube embed, analytics, another font host), add its address to the policy, or the browser will block it.
 
@@ -118,6 +118,7 @@ The site is hosted on Cloudflare Pages. Pushing to the `main` branch on GitHub r
 
 ## Release history
 
+- **v5.6 (2026-10-27):** The phone menu row now fades out softly at the edge where more links are hidden, instead of cutting a word off mid-letter. The fade shows only on the side with hidden links and disappears when the whole menu fits.
 - **v5.5 (2026-10-27):** Added the X (Twitter) account, @MinawPH, to the top bar and the footer, after Facebook. The top bar icons are slightly tighter on narrow tablets so the whole menu still fits. On phones the name and tagline band above the photo is more compact (less space above the name, a 64 px name, a tighter tagline), and the photo takes the room that is left, so the Upcoming Shows panel now fits in the first screen even with the browser bars showing.
 - **v5.4 (2026-10-26):** The footer is now a full footer instead of a single copyright line: logo and tagline, social icons, Explore, Listen (including Apple Music) and Bookings & contact columns, and a bottom bar with the copyright and Back to top. It collapses cleanly on tablets and phones.
 - **v5.3 (2026-10-26):** The Music section is now the latest release as a banner plus a swipeable carousel of the other 11 singles (arrows, a position counter, one card at a time on phones). Every button links to the song's exact YouTube video, and each cover uses that video's YouTube thumbnail, with the placeholder as a fallback. "Mukha Ng Diyos" was removed, which makes 12 songs, matching the Bio. The security policy now allows images from YouTube's image server.

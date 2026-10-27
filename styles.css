@@ -120,6 +120,26 @@ body {
   display: none;
 }
 
+/* A soft fade on the edge(s) of the menu row where more links are hidden (script.js sets data-fade) */
+.nav-links {
+  --nav-fade: 1.75rem;
+}
+
+.nav-links[data-fade="end"] {
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--nav-fade)), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - var(--nav-fade)), transparent);
+}
+
+.nav-links[data-fade="start"] {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--nav-fade));
+  mask-image: linear-gradient(to right, transparent, #000 var(--nav-fade));
+}
+
+.nav-links[data-fade="both"] {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--nav-fade), #000 calc(100% - var(--nav-fade)), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 var(--nav-fade), #000 calc(100% - var(--nav-fade)), transparent);
+}
+
 .nav-links a {
   flex: none;
 }
