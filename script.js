@@ -161,9 +161,16 @@
       const overflowing = row.scrollWidth > row.clientWidth + 1;
       prev.hidden = !overflowing; // arrows only appear when the links do not all fit
       next.hidden = !overflowing;
-      if (!overflowing) return;
-      prev.disabled = row.scrollLeft <= 1;
-      next.disabled = row.scrollLeft + row.clientWidth >= row.scrollWidth - 1;
+      if (!overflowing) {
+        delete row.dataset.fade;
+        return;
+      }
+      const atStart = row.scrollLeft <= 1;
+      const atEnd = row.scrollLeft + row.clientWidth >= row.scrollWidth - 1;
+      prev.disabled = atStart;
+      next.disabled = atEnd;
+      // Soft fade on the side(s) where more links are hidden, so a link is never cut off mid-letter
+      row.dataset.fade = atStart ? "end" : atEnd ? "start" : "both";
     }
 
     prev.addEventListener("click", () => row.scrollBy({ left: -row.clientWidth * 0.6, behavior: behavior() }));
