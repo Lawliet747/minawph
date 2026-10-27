@@ -1168,7 +1168,13 @@ main {
 .form-status[data-kind="ok"] { color: var(--accent); }
 .form-status[data-kind="error"] { color: var(--error); }
 
-/* ---- Footer ---- */
+/* Narrow tablets: five social icons are a little tighter so every nav link still fits without scrolling */
+@media (min-width: 768px) and (max-width: 860px) {
+  .socials a {
+    width: 32px; /* five icons now take the same room four did */
+  }
+}
+
 /* ---- Footer ---- */
 .site-footer {
   position: relative;
@@ -1428,5 +1434,38 @@ main {
 @media (min-width: 641px) and (max-width: 1000px) {
   .carousel {
     --per-view: 2;
+  }
+}
+
+/* Phones: a more compact name band, so the photo and the shows panel fit in the first screen */
+@media (max-width: 640px) and (orientation: portrait) {
+  .hero {
+    --photo-ratio: 1.18; /* slightly shorter photo (the crop trims a little off the bottom) */
+    padding-top: 1.25rem; /* was 9% of the screen height: a big empty gap above the name */
+  }
+
+  .hero-copy {
+    --name-max: 4rem; /* was as wide as the screen (about 86 px) */
+  }
+
+  .hero-copy p {
+    margin-top: 0.4rem;
+    font-size: 1rem;
+  }
+
+  /* The photo takes the room that is left under the text, between 1.18 and 1.35 times its width.
+     Taller screens get a bigger photo instead of a blank gap; script.js sets --hero-text-bottom. */
+  .hero-bg {
+    aspect-ratio: auto;
+    height: clamp(
+      calc(100vw * 1.18),
+      calc(100vh - var(--topbar-h, 84px) - var(--hero-text-bottom, 7.5rem)),
+      calc(100vw * 1.35)
+    );
+    height: clamp(
+      calc(100vw * 1.18),
+      calc(100svh - var(--topbar-h, 84px) - var(--hero-text-bottom, 7.5rem)),
+      calc(100vw * 1.35)
+    );
   }
 }
