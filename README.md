@@ -86,7 +86,7 @@ The footer has four parts: the logo with the tagline, the place and the social i
 Each item is marked with a `TODO` comment in `index.html`.
 
 - [ ] Upcoming shows text
-- [ ] News: replace the two "Coming soon" items as stories come in
+- [ ] News: replace the last "Coming soon" item as stories come in (newest first; each item has a date, a headline and a short summary)
 - [ ] Gallery: replace the dashed placeholders with real photos (about 800 px wide, under 150 KB, WebP)
 - [ ] Contact form: replace `YOUR_FORM_ID` (see below)
 
@@ -118,7 +118,7 @@ The site is hosted on Cloudflare Pages. Pushing to the `main` branch on GitHub r
 
 ## Release history
 
-- **v5.6 (2026-10-27):** The phone menu row now fades out softly at the edge where more links are hidden, instead of cutting a word off mid-letter. The fade shows only on the side with hidden links and disappears when the whole menu fits. The 22 October News entry also gained a short, plain-language update (dated 28 Oct) about the new look, the songs and where to follow Minaw.
+- **v5.6 (2026-10-27):** The phone menu row now fades out softly at the edge where more links are hidden, instead of cutting a word off mid-letter. The fade shows only on the side with hidden links and disappears when the whole menu fits. The News section now opens with a "Latest Update" (28 Oct) about the new look, the songs and where to follow Minaw, above the original 22 Oct announcement.
 - **v5.5 (2026-10-27):** Added the X (Twitter) account, @MinawPH, to the top bar and the footer, after Facebook. The top bar icons are slightly tighter on narrow tablets so the whole menu still fits. On phones the name and tagline band above the photo is more compact (less space above the name, a 64 px name, a tighter tagline), and the photo takes the room that is left, so the Upcoming Shows panel now fits in the first screen even with the browser bars showing.
 - **v5.4 (2026-10-26):** The footer is now a full footer instead of a single copyright line: logo and tagline, social icons, Explore, Listen (including Apple Music) and Bookings & contact columns, and a bottom bar with the copyright and Back to top. It collapses cleanly on tablets and phones.
 - **v5.3 (2026-10-26):** The Music section is now the latest release as a banner plus a swipeable carousel of the other 11 singles (arrows, a position counter, one card at a time on phones). Every button links to the song's exact YouTube video, and each cover uses that video's YouTube thumbnail, with the placeholder as a fallback. "Mukha Ng Diyos" was removed, which makes 12 songs, matching the Bio. The security policy now allows images from YouTube's image server.
