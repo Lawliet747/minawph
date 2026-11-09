@@ -740,6 +740,156 @@ main {
   font-size: clamp(1.5rem, 3vw, 2.25rem);
 }
 
+/* ---- Vinyl: the latest release cover ----
+   A record sits behind the sleeve and spins slowly; on hover it slides a little further out.
+   Everything is sized in % of the cover, so it scales with the card. Colours come from the :root palette. */
+.release .cover.vinyl {
+  display: block; /* undoes the centring grid the plain covers use */
+  background:
+    radial-gradient(circle at 68% 50%, rgba(var(--accent-line-rgb), 0.28), transparent 48%),
+    linear-gradient(160deg, var(--tile-top), var(--bg-dark));
+}
+
+.vinyl-sleeve {
+  position: absolute;
+  top: 50%;
+  left: 8%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 45%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--tile-top), var(--bg-dark));
+  border: 1px solid var(--line);
+  box-shadow: 0 0.75rem 2rem rgba(var(--shadow-rgb), 0.6);
+  transform: translateY(-50%);
+}
+
+.release .vinyl-sleeve .mark {
+  width: 38%;
+}
+
+.vinyl-record {
+  position: absolute;
+  top: 50%;
+  left: 42%;
+  z-index: 1;
+  width: 43%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-shadow: 0 0.5rem 1.5rem rgba(var(--shadow-rgb), 0.55);
+  transform: translateY(-50%);
+}
+
+/* A fixed shine over the record: it does not turn with the grooves, like light on real vinyl */
+.vinyl-record::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background: conic-gradient(
+    from 25deg,
+    transparent 0 6%,
+    rgba(255, 255, 255, 0.13) 11%,
+    transparent 17% 52%,
+    rgba(255, 255, 255, 0.09) 61%,
+    transparent 67%
+  );
+}
+
+.vinyl-disc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle, #060a12 0 1.5px, #0e1524 1.5px 3px);
+}
+
+/* the smooth ring where the grooves end, just outside the label */
+.vinyl-disc::before {
+  content: "";
+  position: absolute;
+  inset: 27%;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(var(--accent-rgb), 0.14);
+}
+
+.vinyl-label {
+  position: absolute;
+  inset: 33%;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, var(--tile-top), var(--bg-dark));
+  border: 1px solid var(--accent-line);
+}
+
+.vinyl-label img {
+  display: block;
+  width: 70%;
+  height: auto;
+}
+
+/* the spindle hole */
+.vinyl-label::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 11%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--bg-bar);
+  transform: translate(-50%, -50%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .vinyl-disc { animation: vinyl-spin 6s linear infinite; }
+  .vinyl-record { transition: transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .release--latest:hover .vinyl-record { transform: translateY(-50%) translateX(12%); }
+}
+
+@keyframes vinyl-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Three little level bars in the "Latest release" tag */
+.eq {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  width: 11px;
+  height: 0.7rem;
+  margin-right: 0.5rem;
+  vertical-align: -1px;
+}
+
+.eq span {
+  flex: 1;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: bottom;
+}
+
+.eq span:nth-child(1) { transform: scaleY(0.55); }
+.eq span:nth-child(2) { transform: scaleY(1); }
+.eq span:nth-child(3) { transform: scaleY(0.7); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .eq span { animation: eq-bounce 1.1s ease-in-out infinite; }
+  .eq span:nth-child(2) { animation-delay: -0.4s; animation-duration: 0.9s; }
+  .eq span:nth-child(3) { animation-delay: -0.7s; animation-duration: 1.3s; }
+}
+
+@keyframes eq-bounce {
+  0%, 100% { transform: scaleY(0.3); }
+  50%      { transform: scaleY(1); }
+}
+
 .card-actions {
   display: flex;
   flex-wrap: wrap;
