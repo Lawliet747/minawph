@@ -857,6 +857,34 @@ main {
   to { transform: rotate(360deg); }
 }
 
+/* ---- Vinyl, small version: the "More singles" cards ----
+   Same record as the latest release, but it rests mostly tucked behind the sleeve and only slides out
+   and spins while the card is hovered or has keyboard focus (eleven records spinning at once would be a lot). */
+.vinyl--small .vinyl-record {
+  left: 24%; /* resting: only a sliver shows beside the sleeve */
+}
+
+/* YouTube's standard thumbnails are 4:3 with black bars above and below the picture. Show only the picture
+   (the middle 16:9), cropped to the square sleeve: the image is drawn 178% wide and 133% tall, centred. */
+.release .vinyl--small .vinyl-sleeve .thumb {
+  inset: auto;
+  top: -16.7%;
+  left: -38.9%;
+  width: 177.8%;
+  height: 133.4%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .vinyl--small .vinyl-disc { animation-play-state: paused; }
+  .release:focus-within .vinyl--small .vinyl-record { transform: translateY(-50%) translateX(42%); }
+  .release:focus-within .vinyl--small .vinyl-disc { animation-play-state: running; }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .release:hover .vinyl--small .vinyl-record { transform: translateY(-50%) translateX(42%); }
+  .release:hover .vinyl--small .vinyl-disc { animation-play-state: running; }
+}
+
 /* Three little level bars in the "Latest release" tag */
 .eq {
   display: inline-flex;
